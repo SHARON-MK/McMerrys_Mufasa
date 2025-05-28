@@ -46,7 +46,7 @@ const Hero = () => {
         <div 
           className="w-full h-full bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url('https://wallpaperaccess.com/full/11122239.jpg')`
+            backgroundImage: `url('https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`
           }}
         />
         {/* <div className="absolute inset-0 bg-gradient-to-br from-[#fff700]/30 via-[#fffa33]/25 to-[#e6de00]/60"></div> */}
