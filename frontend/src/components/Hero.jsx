@@ -40,7 +40,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative py-8 min-h-screen overflow-hidden flex flex-col">
+    <section className="relative py-12 min-h-[80vh] overflow-hidden flex flex-col items-center justify-center">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <div 
@@ -51,58 +51,58 @@ const Hero = () => {
         />
         {/* <div className="absolute inset-0 bg-gradient-to-br from-[#fff700]/30 via-[#fffa33]/25 to-[#e6de00]/60"></div> */}
 
-         <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/75 to-black/80"></div>
+         <div className="absolute inset-0 bg-black/70"></div>
 
            {/* <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-black/85 to-black/90"></div> */}
       </div>
 
       {/* Animated Background Pattern Overlay */}
-      <div className="absolute inset-0 z-10 opacity-20">
-        <div className="absolute inset-0 bg-gradient-to-r from-yellow-600/10 to-orange-500/10 animate-gradient-x"></div>
+      <div className="absolute inset-0 z-10 opacity-10">
+        <div className="absolute inset-0 bg-gradient-to-r from-yellow-600/0 to-orange-500/0 animate-gradient-x"></div>
         <div className="absolute inset-0 animate-pulse-slow" style={{
-          backgroundImage: `radial-gradient(circle at 25% 25%, rgba(0, 0, 0, 0.05) 0%, transparent 50%), 
-                           radial-gradient(circle at 75% 75%, rgba(0, 0, 0, 0.08) 0%, transparent 50%)`
+          backgroundImage: `radial-gradient(circle at 25% 25%, rgba(0, 0, 0, 0.03) 0%, transparent 50%), 
+                           radial-gradient(circle at 75% 75%, rgba(0, 0, 0, 0.04) 0%, transparent 50%)`
         }}></div>
         <div className="absolute inset-0 animate-float">
-          <div className="absolute top-1/4 left-1/4 w-32 sm:w-48 md:w-64 h-32 sm:h-48 md:h-64 bg-yellow-400/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-32 sm:w-48 md:w-64 h-32 sm:h-48 md:h-64 bg-yellow-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute top-1/4 left-1/4 w-24 sm:w-32 md:w-48 h-24 sm:h-32 md:h-48 bg-yellow-400/0 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-24 sm:w-32 md:w-48 h-24 sm:h-32 md:h-48 bg-yellow-500/0 rounded-full blur-3xl"></div>
         </div>
       </div>
 
       {/* Ads Banner Section - Top */}
-      <div className="relative z-20 w-full h-24 sm:h-32 md:h-40 mb-6 sm:mb-8">
-        <div className="container mx-auto px-8 sm:px-6 lg:px-10  h-full">
-          <div className="relative w-full h-full rounded-xl overflow-hidden mt-8">
+      <div className="relative z-20 w-full max-w-4xl h-20 sm:h-24 md:h-32 mb-6 rounded-xl overflow-hidden shadow-lg">
+        <div className="container mx-auto px-4 h-full">
+          <div className="relative w-full h-full rounded-xl overflow-hidden">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentAdsIndex}
                 className="absolute inset-0 w-full h-full"
-                initial={{ opacity: 0, scale: 1.1 }}
+                initial={{ opacity: 0, scale: 1.05 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.8, ease: "easeInOut" }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
               >
                 <img
                   src={adsImages[currentAdsIndex]}
                   alt={`Advertisement ${currentAdsIndex + 1}`}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent"></div>
-                <div className="absolute inset-0 flex items-center justify-start pl-6 sm:pl-8 md:pl-12">
+                <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent"></div>
+                <div className="absolute inset-0 flex items-center justify-center text-center px-4">
                   <div className="text-white">
                     <motion.h3 
-                      initial={{ x: -50, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      transition={{ delay: 0.3, duration: 0.6 }}
-                      className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-1 sm:mb-8"
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ delay: 0.2, duration: 0.5 }}
+                      className="text-base sm:text-lg md:text-xl font-bold mb-1"
                     >
                       Premium Event Services
                     </motion.h3>
                     <motion.p 
-                      initial={{ x: -50, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      transition={{ delay: 0.5, duration: 0.6 }}
-                      className="text-sm sm:text-base md:text-lg opacity-90"
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ delay: 0.4, duration: 0.5 }}
+                      className="text-xs sm:text-sm md:text-base opacity-90"
                     >
                       Experience luxury like never before
                     </motion.p>
@@ -112,11 +112,11 @@ const Hero = () => {
             </AnimatePresence>
             
             {/* Ads indicators */}
-            <div className="absolute bottom-3 sm:bottom-4 right-4 sm:right-6 flex space-x-2">
+            <div className="absolute bottom-2 right-2 flex space-x-1">
               {adsImages.map((_, index) => (
                 <div
                   key={index}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
                     index === currentAdsIndex ? 'bg-white' : 'bg-white/50'
                   }`}
                 />
@@ -139,14 +139,14 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="mb-6 sm:mb-8 md:mb-8" 
+              className="mb-4 sm:mb-6 md:mb-8"
             >
-              <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-6xl xl:text-6xl font-bold mt-4 text-white leading-tight">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mt-0 text-white leading-tight">
                 <motion.span 
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.2 }}
-                  className="block mb-2 sm:mb-3 md:mb-4"
+                  className="block mb-1 sm:mb-2 md:mb-3"
                 >
                  "The right moment calls
                 </motion.span>
@@ -167,9 +167,9 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }} 
-              className="mb-8 sm:mb-1" 
+              className="mb-4 sm:mb-6"
             >
-              <p className="text-lg sm:text-xl  lg:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed  p-4 sm:p-6"> 
+              <p className="text-sm sm:text-base  lg:text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed  p-2 sm:p-4">
                 We handle every detail to make your social, corporate, or wedding event unforgettable.
               </p>
             </motion.div>
@@ -219,11 +219,11 @@ const Hero = () => {
               
               <p className="mt-3 sm:mt-4 md:mt-6 text-xs sm:text-sm text-gray-500 max-w-lg mx-auto"> 
                 By clicking "Get Started", you agree to our{' '}
-                <a href="#" className="text-blue-500 hover:text-blue-800 underline transition-colors font-medium">
+                <a href="#" className="text-blue-400 hover:text-blue-600 underline transition-colors font-medium">
                   Terms of Service
                 </a>{' '}
                 and{' '}
-                <a href="#" className="text-blue-500 hover:text-blue-800 underline transition-colors font-medium">
+                <a href="#" className="text-blue-400 hover:text-blue-600 underline transition-colors font-medium">
                   Privacy Policy
                 </a>
                 .
@@ -237,7 +237,7 @@ const Hero = () => {
       </div>
 
       {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 sm:h-32 bg-gradient-to-t from-[#e6de00]/10 to-transparent z-10"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-16 sm:h-24 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
     </section>
   );
 };
