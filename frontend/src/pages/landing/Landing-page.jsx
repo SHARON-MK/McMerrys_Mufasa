@@ -10,6 +10,7 @@ import Footer from "../../components/Footer";
 import SocialEventsBooking from "../../components/Special-s";
 import MCMerrysFAQ from "../../components/Faq";
 import NetflixStyleGrid from "../../components/FeaturedGrid";
+import AdsCarousel from "../../components/Adcarousel";
 
 const Landing = () => {
   return (
@@ -20,6 +21,7 @@ const Landing = () => {
       {/* <FeaturedGrid /> */}
       <NetflixStyleGrid/>
       <Services />
+      <AdsCarousel/>
       <SocialEventsBooking/>
          <MCMerrysFAQ/>
       <EmailSubscription />

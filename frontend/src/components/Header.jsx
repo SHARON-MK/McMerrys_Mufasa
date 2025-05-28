@@ -27,7 +27,7 @@ const Header = () => {
            
            
           <h1 className={`text-lg sm:text-xl md:text-2xl font-bold text-black tracking-wider flex items-center${
-      isScrolled ? ' text-white' : ' text-white'
+      isScrolled ? ' text-yellow-300' : ' text-yellow-300'
     }`}>
             MC MERRYS
           </h1>

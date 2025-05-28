@@ -1,22 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ArrowRight, CheckCircle } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-
-
-
-// Ads images array
-const adsImages = [
-  'https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=400',
-  'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=400',
-  'https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=400',
-  'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=400',
-];
+import { motion } from 'framer-motion';
 
 const Hero = () => {
   const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
- 
-  const [currentAdsIndex, setCurrentAdsIndex] = useState(0);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,30 +18,17 @@ const Hero = () => {
     }, 3000);
   };
 
-
-  useEffect(() => {
-    const adsTimer = setInterval(() => {
-      setCurrentAdsIndex((prevIndex) => (prevIndex + 1) % adsImages.length);
-    }, 3000); // Change ads image every 3 seconds
-
-    return () => clearInterval(adsTimer);
-  }, []);
-
   return (
-    <section className="relative py-8 overflow-hidden flex flex-col">
+    <section className="relative py-8 min-h-[95vh] overflow-hidden flex flex-col">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <div 
-          className="w-full h-full bg-cover bg-center bg-no-repeat"
+          className="w-full h-[120%] bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: `url('https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`
           }}
         />
-        {/* <div className="absolute inset-0 bg-gradient-to-br from-[#fff700]/30 via-[#fffa33]/25 to-[#e6de00]/60"></div> */}
-
-         <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/75 to-black/80"></div>
-
-           {/* <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-black/85 to-black/90"></div> */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/75 to-black/80"></div>
       </div>
 
       {/* Animated Background Pattern Overlay */}
@@ -69,68 +44,8 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Ads Banner Section - Top */}
-      <div className="relative z-20 w-full h-24 sm:h-32 md:h-40 mb-6 sm:mb-8">
-        <div className="container mx-auto px-8 sm:px-6 lg:px-10  h-full">
-          <div className="relative w-full h-full rounded-xl overflow-hidden mt-8">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentAdsIndex}
-                className="absolute inset-0 w-full h-full"
-                initial={{ opacity: 0, scale: 1.1 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.8, ease: "easeInOut" }}
-              >
-                <img
-                  src={adsImages[currentAdsIndex]}
-                  alt={`Advertisement ${currentAdsIndex + 1}`}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent"></div>
-                <div className="absolute inset-0 flex items-center justify-start pl-6 sm:pl-8 md:pl-12">
-                  <div className="text-white">
-                    <motion.h3 
-                      initial={{ x: -50, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      transition={{ delay: 0.3, duration: 0.6 }}
-                      className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-1 sm:mb-8"
-                    >
-                      Premium Event Services
-                    </motion.h3>
-                    <motion.p 
-                      initial={{ x: -50, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      transition={{ delay: 0.5, duration: 0.6 }}
-                      className="text-sm sm:text-base md:text-lg opacity-90"
-                    >
-                      Experience luxury like never before
-                    </motion.p>
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-            
-            {/* Ads indicators */}
-            <div className="absolute bottom-3 sm:bottom-4 right-4 sm:right-6 flex space-x-2">
-              {adsImages.map((_, index) => (
-                <div
-                  key={index}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                    index === currentAdsIndex ? 'bg-white' : 'bg-white/50'
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Main content container */}
-      <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center flex-1 py-4 sm:py-8">
-        
-      
-        
+      <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center flex-1 py-4 sm:py-8">
         {/* Text Content Section */}
         <div className="w-full mb-8 lg:mb-0 ">
           <div className="max-w-full mx-auto text-center"> 
@@ -141,14 +56,14 @@ const Hero = () => {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="mb-6 sm:mb-8 md:mb-8" 
             >
-              <h1 className="text-4xl sm:text-4xl md:text-4xl lg:text-6xl xl:text-6xl font-bold mt-4 text-white leading-tight">
+              <h1 className="text-5xl sm:text-6xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mt-4 text-white leading-tight">
                 <motion.span 
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.2 }}
                   className="block mb-2 sm:mb-3 md:mb-4"
                 >
-                 "The right moment calls
+                 The right moment calls
                 </motion.span>
 
                 <motion.span 
@@ -157,7 +72,7 @@ const Hero = () => {
                   transition={{ duration: 0.8, delay: 0.4 }}
                   className="block  text-white bg-clip-text text-transparent"
                 >
-                 for the right support."
+                 for the right support.
                 </motion.span>
               </h1>
             </motion.div>
@@ -190,13 +105,13 @@ const Hero = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="Enter your email address"
-                        className="w-full px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 rounded-lg bg-white/90 backdrop-blur-sm border border-gray-300 text-black placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all duration-300 text-sm sm:text-base shadow-lg"
+                        className="w-full px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 rounded-lg bg-black/50 backdrop-blur-sm border border-gray-300 text-black placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all duration-300 text-sm sm:text-base shadow-lg"
                         required
                       />
                     </div>
                     <button
                       onClick={handleSubmit}
-                      className="bg-black text-[#fff700] px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 whitespace-nowrap shadow-lg text-sm sm:text-base hover:bg-gray-800 transform hover:scale-105"
+                      className="bg-[#fff700] text-black px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 whitespace-nowrap shadow-lg text-sm sm:text-base hover:bg-yellow-800 transform hover:scale-105"
                     >
                       Get Started
                       <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -229,15 +144,19 @@ const Hero = () => {
                 .
               </p>
             </motion.div>
-
-           
           </div>
         </div>
-
       </div>
 
-      {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 sm:h-32 bg-gradient-to-t from-[#e6de00]/10 to-transparent z-10"></div>
+      {/* Curved bottom shape */}
+      <div className="absolute bottom-0 left-0 right-0 z-30">
+        <svg className="w-full" viewBox="0 0 1440 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 150 C 360 50, 1080 50, 1440 150 V 150 H 0 V 150 Z" fill="rgba(0,0,0,0.8)"/>
+        </svg>
+      </div>
+
+      {/* Dark overlay for blend */}
+      <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-black via-black/70 to-transparent z-20"></div>
     </section>
   );
 };
