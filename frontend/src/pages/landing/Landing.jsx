@@ -9,6 +9,7 @@ import EmailSubscription from "../../components/EmailSubscription";
 import Footer from "../../components/Footer";
 import SocialEventsBooking from "../../components/Special-s";
 import MCMerrysFAQ from "../../components/Faq";
+import NetflixStyleGrid from "../../components/FeaturedGrid";
 
 const Home = () => {
   return (
@@ -16,7 +17,8 @@ const Home = () => {
       <Header />
       <Hero />
       {/* <ScrollingImages /> */}
-      <FeaturedGrid />
+      {/* <FeaturedGrid /> */}
+      <NetflixStyleGrid/>
       <Services />
       <SocialEventsBooking/>
          <MCMerrysFAQ/>
