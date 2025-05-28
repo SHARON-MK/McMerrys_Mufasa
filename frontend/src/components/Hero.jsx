@@ -97,27 +97,28 @@ const Hero = () => {
               className="mb-8 sm:mb-10 md:mb-12" 
             >
               {!isSubmitted ? (
-                <div className="max-w-xl mx-auto">
-                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                    <div className="flex-grow">
-                      <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Enter your email address"
-                        className="w-full px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 rounded-lg bg-black/50 backdrop-blur-sm border border-gray-300 text-black placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all duration-300 text-sm sm:text-base shadow-lg"
-                        required
-                      />
-                    </div>
-                    <button
-                      onClick={handleSubmit}
-                      className="bg-[#fff700] text-black px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 whitespace-nowrap shadow-lg text-sm sm:text-base hover:bg-yellow-800 transform hover:scale-105"
-                    >
-                      Get Started
-                      <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
-                    </button>
-                  </div>
-                </div>
+               <div className="max-w-xl mx-auto">
+  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center">
+    <div className="w-full sm:flex-grow">
+      <input
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Enter your email address"
+        className="w-full px-3 sm:px-4 md:px-6 py-3.5 sm:py-3 md:py-4 rounded-lg bg-black/50 backdrop-blur-sm border border-gray-300 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all duration-300 text-sm sm:text-base shadow-lg"
+        required
+      />
+    </div>
+    <button
+      onClick={handleSubmit}
+      className="w-fit bg-[#fff700] text-black px-4 sm:px-6 md:px-8 py-3.5 sm:py-3 md:py-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 whitespace-nowrap shadow-lg text-sm sm:text-base hover:bg-yellow-800 transform hover:scale-105"
+    >
+      Get Started
+      <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+    </button>
+  </div>
+</div>
+
               ) : (
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.95 }}
