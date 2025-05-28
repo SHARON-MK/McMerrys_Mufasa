@@ -2,9 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 import './App.css';
-import Home from './pages/landing/landing';
-import { ServicesScreen } from './pages/services/Service';
 import McMerrysLoader from './components/Loader';
+import Landing from './pages/landing/Landing-page';
 
 
 function App() {
@@ -27,7 +26,7 @@ function App() {
     <Router>
       <div>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Landing />} />
           {/* <Route path="/service" element={<ServicesScreen />} /> */}
         </Routes>
       </div>

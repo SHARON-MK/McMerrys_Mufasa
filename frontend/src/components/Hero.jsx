@@ -141,7 +141,7 @@ const Hero = () => {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="mb-6 sm:mb-8 md:mb-8" 
             >
-              <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mt-4 text-white leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-6xl xl:text-6xl font-bold mt-4 text-white leading-tight">
                 <motion.span 
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -169,7 +169,7 @@ const Hero = () => {
               transition={{ duration: 0.8, delay: 0.6 }} 
               className="mb-8 sm:mb-1" 
             >
-              <p className="text-lg sm:text-xl  lg:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed  p-4 sm:p-6"> 
+              <p className="text-lg sm:text-xl  lg:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed  p-4 sm:p-6"> 
                 We handle every detail to make your social, corporate, or wedding event unforgettable.
               </p>
             </motion.div>

@@ -11,7 +11,7 @@ import SocialEventsBooking from "../../components/Special-s";
 import MCMerrysFAQ from "../../components/Faq";
 import NetflixStyleGrid from "../../components/FeaturedGrid";
 
-const Home = () => {
+const Landing = () => {
   return (
     <div className="min-h-screen bg-[#fff700]">
       <Header />
@@ -29,4 +29,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Landing;
