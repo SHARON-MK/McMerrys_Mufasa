@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import McMerrysLoader from './components/Loader';
 import Landing from './pages/landing/Landing-page';
+import EventPage from './pages/services/Event_page';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
       <div>
         <Routes>
           <Route path="/" element={<Landing />} />
+          <Route path="/event" element={<EventPage />} />
           {/* <Route path="/service" element={<ServicesScreen />} /> */}
         </Routes>
       </div>

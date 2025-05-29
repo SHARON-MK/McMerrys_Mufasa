@@ -1,36 +1,58 @@
-import { Users, Calendar, MapPin } from "lucide-react";
+import { Users, Calendar, MapPin, SquaresExclude } from "lucide-react";
+import {Link} from 'react-router-dom'
 
 export default function SocialEventsBooking() {
   return (
     <div className="flex items-center justify-center min-h-fit">
- <div
-            className="relative w-[750px] h-[400px] bg-fit bg-no-repeat bg-center rounded-xl transition-transform duration-500"
-            style={{ backgroundImage: "url('./bg/rec-symbol3-1.webp')" }}
-          >
-            {/* Triangle arrangement of event icons */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              {/* Top icon - Users */}
-              <div className="absolute -translate-y-20">
-                <div className="bg-white/90 backdrop-blur-sm p-6 rounded-full shadow-lg hover:scale-110 transition-transform duration-300">
-                  <Users size={48} className="text-blue-600" />
-                </div>
+      <div
+        className="relative w-[750px] h-[400px] bg-fit bg-no-repeat bg-center rounded-xl transition-transform duration-500"
+        style={{ backgroundImage: "url('./bg/rec-symbol3-1.webp')" }}
+      >
+        {/* Triangle arrangement of event images */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          {/* Top - Corporate Events */}
+          <div className="absolute -translate-y-20 flex flex-col items-center">
+            <Link to="/event?name=corporate" className="flex flex-col items-center hover:scale-105 transition-transform duration-300">
+              <div className="bg-white/50 backdrop-blur-sm p-2 rounded-full shadow-lg">
+                <img 
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWXtstFskreGHnzmcbmQodI1PpeKxUSyqJIM6-z-GAe6PbgRSCA45SwyDm4Zb_3gI5XBw&usqp=CAU" 
+                  alt="Corporate Events"
+                  className="w-16 h-16 rounded-full object-cover"
+                />
               </div>
-              
-              {/* Bottom left icon - Calendar */}
-              <div className="absolute translate-y-16 -translate-x-24">
-                <div className="bg-white/90 backdrop-blur-sm p-6 rounded-full shadow-lg hover:scale-110 transition-transform duration-300">
-                  <Calendar size={48} className="text-green-600" />
-                </div>
-              </div>
-              
-              {/* Bottom right icon - MapPin */}
-              <div className="absolute translate-y-16 translate-x-24">
-                <div className="bg-white/90 backdrop-blur-sm p-6 rounded-full shadow-lg hover:scale-110 transition-transform duration-300">
-                  <MapPin size={48} className="text-red-600" />
-                </div>
-              </div>
-            </div>
+              <span className="mt-2 text-blue-800 font-bold text-lg">Corporate Events</span>
+            </Link>
           </div>
+          
+          {/* Bottom left - Social Events */}
+          <div className="absolute translate-y-16 -translate-x-24 flex flex-col items-center">
+            <Link to="/event?name=social" className="flex flex-col items-center hover:scale-105 transition-transform duration-300">
+              <div className="bg-white/50 backdrop-blur-sm p-2 rounded-full shadow-lg">
+                <img 
+                  src="https://img.freepik.com/premium-vector/social-media-community-icon_24908-31874.jpg" 
+                  alt="Social Events"
+                  className="w-16 h-16 rounded-full object-cover"
+                />
               </div>
+              <span className="mt-2 text-blue-800 font-bold text-lg">Social Events</span>
+            </Link>
+          </div>
+          
+          {/* Bottom right - School Events */}
+          <div className="absolute translate-y-16 translate-x-24 flex flex-col items-center">
+            <Link to="/event?name=school" className="flex flex-col items-center hover:scale-105 transition-transform duration-300">
+              <div className="bg-white/50 backdrop-blur-sm p-2 rounded-full shadow-lg">
+                <img 
+                  src="https://static.vecteezy.com/system/resources/thumbnails/044/764/471/small/school-icon-3d-render-concept-of-education-icon-illustration-png.png" 
+                  alt="School Events"
+                  className="w-16 h-16 rounded-full object-cover"
+                />
+              </div>
+              <span className="mt-2 text-blue-800 font-bold text-lg">School Events</span>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

@@ -86,21 +86,21 @@ const Services = () => {
           {/* Cards Container - Stacked on mobile, horizontal on large screens */}
           <div
             ref={scrollRef}
-            className="flex flex-col items-center lg:flex-row lg:overflow-x-auto lg:space-x-4 space-y-4 lg:space-y-0 lg:px-12 scrollbar-hide"
+            className="flex flex-col items-center lg:flex-row lg:overflow-x-auto lg:gap-6 gap-6 lg:px-12 scrollbar-hide"
           >
             {allServices.map((service, index) => (
               <div
                 key={index}
-                className="w-full lg:min-w-[280px] lg:max-w-[300px] bg-black/50 rounded-lg border border-[#fff700]/20 overflow-hidden flex-shrink-0"
+                className="w-[90%] sm:w-[400px] md:w-[350px] lg:w-[300px] h-[400px] bg-black/50 rounded-lg border border-[#fff700]/20 overflow-hidden flex-shrink-0 flex flex-col"
               >
                 <img
                   src={service.image}
                   alt={service.title}
-                  className="w-full h-48 object-cover"
+                  className="w-full h-[200px] object-cover"
                 />
-                <div className="p-4">
-                  <h3 className="text-lg font-semibold text-[#fff700]">{service.title}</h3>
-                  <p className="text-gray-300 text-sm">{service.description}</p>
+                <div className="p-4 flex-1 flex flex-col justify-between">
+                  <h3 className="text-lg font-semibold text-[#fff700] mb-1">{service.title}</h3>
+                  <p className="text-gray-300 text-sm line-clamp-3">{service.description}</p>
                 </div>
               </div>
             ))}

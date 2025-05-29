@@ -204,7 +204,7 @@ const NetflixStyleGrid = () => {
               const IconComponent = item.icon;
               return (
                 <div key={`${item.id}-${index}`} className="flex-none w-[300px] group/card">
-                  <div className={`relative overflow-hidden rounded-lg bg-gradient-to-br shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 p-6 h-[280px] flex flex-col justify-between cursor-pointer`}>
+                  <div className={`relative overflow-hidden rounded-lg bg-gradient-to-br shadow-lg border border-gray-300 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 p-6 h-[280px] flex flex-col justify-between cursor-pointer`}>
                     {/* Content */}
                     <div className="flex-1">
                       <h3 className="text-xl font-bold  text-black  mb-3 leading-tight">
