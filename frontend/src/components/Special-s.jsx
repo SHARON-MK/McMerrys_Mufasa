@@ -1,15 +1,23 @@
-import { Users, Calendar, MapPin, SquaresExclude } from "lucide-react";
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 export default function SocialEventsBooking() {
   return (
     <div className="flex items-center justify-center min-h-fit">
-      <div
-        className="relative w-[750px] h-[400px] bg-fit bg-no-repeat bg-center rounded-xl transition-transform duration-500"
-        style={{ backgroundImage: "url('./bg/rec-symbol3-1.webp')" }}
-      >
-        {/* Triangle arrangement of event images */}
-        <div className="absolute inset-0 flex items-center justify-center">
+      <div className="relative w-[750px] h-[400px] rounded-xl overflow-hidden">
+        {/* Background image with grayscale and opacity */}
+        <div
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundImage: "url('./bg/rec-symbol3-1.webp')",
+          
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            filter: 'grayscale(100%) opacity(0.5)',
+          }}
+        ></div>
+
+        {/* Foreground Content */}
+        <div className="absolute inset-0 flex items-center justify-center z-10">
           {/* Top - Corporate Events */}
           <div className="absolute -translate-y-20 flex flex-col items-center">
             <Link to="/event?name=corporate" className="flex flex-col items-center hover:scale-105 transition-transform duration-300">
@@ -20,10 +28,10 @@ export default function SocialEventsBooking() {
                   className="w-16 h-16 rounded-full object-cover"
                 />
               </div>
-              <span className="mt-2 text-blue-800 font-bold text-lg">Corporate Events</span>
+              <span className="mt-2 text-black font-bold text-lg">Corporate Events</span>
             </Link>
           </div>
-          
+
           {/* Bottom left - Social Events */}
           <div className="absolute translate-y-16 -translate-x-24 flex flex-col items-center">
             <Link to="/event?name=social" className="flex flex-col items-center hover:scale-105 transition-transform duration-300">
@@ -34,10 +42,10 @@ export default function SocialEventsBooking() {
                   className="w-16 h-16 rounded-full object-cover"
                 />
               </div>
-              <span className="mt-2 text-blue-800 font-bold text-lg">Social Events</span>
+              <span className="mt-2 text-black font-bold text-lg">Social Events</span>
             </Link>
           </div>
-          
+
           {/* Bottom right - School Events */}
           <div className="absolute translate-y-16 translate-x-24 flex flex-col items-center">
             <Link to="/event?name=school" className="flex flex-col items-center hover:scale-105 transition-transform duration-300">
@@ -48,7 +56,7 @@ export default function SocialEventsBooking() {
                   className="w-16 h-16 rounded-full object-cover"
                 />
               </div>
-              <span className="mt-2 text-blue-800 font-bold text-lg">School Events</span>
+              <span className="mt-2 text-black font-bold text-lg">School Events</span>
             </Link>
           </div>
         </div>
