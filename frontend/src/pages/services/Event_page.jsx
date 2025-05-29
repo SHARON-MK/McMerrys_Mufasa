@@ -5,39 +5,45 @@ const events = [
   // Social Events
   {
     name: 'Naming Ceremony',
-    description: 'Celebrate the precious moment of naming a newborn with elegant decorations and traditional rituals.',
+    description: 'Celebrate the precious moment of naming a newborn with elegant decorations and rituals.',
     image: 'https://example.com/images/naming_ceremony.jpg',
     category: 'Social',
   },
   {
     name: 'Baby Showers',
-    description: 'Make baby showers memorable with themed decor, games, and joyful moments.',
+    description: 'Cherish the upcoming arrival with themed decor and memorable games.',
     image: 'https://example.com/images/baby_shower.jpg',
     category: 'Social',
   },
   {
     name: 'Family Reunions',
-    description: 'Bringing generations together with activities, food, and nostalgic vibes.',
+    description: 'Reconnect across generations with fun, food, and warmth.',
     image: 'https://example.com/images/family_reunion.jpg',
+    category: 'Social',
+  },
+  {
+    name: 'House Warming',
+    description: 'Start new beginnings with beautiful décor and warm wishes.',
+    image: 'https://example.com/images/house_warming.jpg',
     category: 'Social',
   },
 
   // Corporate Events
   {
     name: 'Conferences and Seminars',
-    description: 'Organizing impactful corporate conferences with stage setup, AV, and logistics.',
+    description: 'Professional setups for impactful corporate interactions.',
     image: 'https://example.com/images/conference_seminar.jpg',
     category: 'Corporate',
   },
   {
     name: 'Product Launches',
-    description: 'Create a buzz with stunning launch events for your next big innovation.',
+    description: 'Unveil new ideas with exciting launch experiences.',
     image: 'https://example.com/images/product_launch.jpg',
     category: 'Corporate',
   },
   {
     name: 'Team Building Activity',
-    description: 'Boost employee morale and collaboration with curated team activities.',
+    description: 'Boost employee morale through engaging group activities.',
     image: 'https://example.com/images/team_building.jpg',
     category: 'Corporate',
   },
@@ -45,19 +51,19 @@ const events = [
   // School Events
   {
     name: 'School Annual Day',
-    description: 'Celebrate academic and extracurricular achievements with grand annual day functions.',
+    description: 'Celebrate milestones and achievements in style.',
     image: 'https://example.com/images/school_annual_day.jpg',
     category: 'School',
   },
   {
-    name: 'Special Festive Days Decorations',
-    description: 'Decorating schools to celebrate national and cultural festivals in style.',
+    name: 'Festive Day Decorations',
+    description: 'Bring vibrance to campus with seasonal themes.',
     image: 'https://example.com/images/festive_school_decor.jpg',
     category: 'School',
   },
   {
     name: 'Youth Festivals',
-    description: 'Exciting inter-school youth festivals full of talent, enthusiasm, and energy.',
+    description: 'Celebrate youth creativity and energy with vibrant fests.',
     image: 'https://example.com/images/youth_festival.jpg',
     category: 'School',
   },
@@ -72,27 +78,38 @@ const EventPage = () => {
   );
 
   return (
-    <div className="min-h-screen bg-[#fff700] py-16 px-6">
+    <div className="min-h-screen bg-[#fff700] py-12 px-4">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 capitalize text-gray-900">
+        <div className="text-center mb-10">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 capitalize">
             {categoryParam} Events
           </h1>
-          <div className="w-24 h-1 bg-[#fff700] mx-auto rounded-full"></div>
+          <p className="text-gray-500 mt-1 text-sm">
+            Curated {categoryParam?.toLowerCase()} event experiences.
+          </p>
         </div>
 
         {filteredEvents.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {filteredEvents.map((event, idx) => (
-              <div key={idx} className="bg-white rounded-2xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
-                <img src={event.image} alt={event.name} className="w-full h-48 object-cover" />
-                <div className="p-6">
-                  <div className="flex items-center mb-3">
-                    <div className="w-2 h-8 bg-[#fff700] rounded-full mr-3"></div>
-                    <h2 className="text-xl font-bold text-gray-900">{event.name}</h2>
+              <div
+                key={idx}
+                className="bg-white rounded-xl shadow hover:shadow-lg transition-transform hover:-translate-y-1"
+              >
+                <img
+                  src={event.image}
+                  alt={event.name}
+                  className="w-full h-32 object-cover rounded-t-xl"
+                />
+                <div className="p-3">
+                  <div className="flex justify-between items-center mb-1">
+                    <h2 className="text-base font-semibold text-gray-800">{event.name}</h2>
+                    <span className="text-xs bg-yellow-300 text-gray-900 px-2 py-0.5 rounded-full">
+                      {event.category}
+                    </span>
                   </div>
-                  <p className="text-gray-600 leading-relaxed">{event.description}</p>
-                  <button className="mt-4 w-full bg-[#fff700] text-gray-900 font-semibold py-2 px-4 rounded-lg hover:bg-[#fff700]/90 transition-colors duration-300">
+                  <p className="text-sm text-gray-600 line-clamp-2">{event.description}</p>
+                  <button className="mt-3 w-full text-sm bg-yellow-400 text-gray-900 font-medium py-1.5 rounded hover:bg-yellow-300 transition-colors">
                     Learn More
                   </button>
                 </div>
@@ -102,9 +119,12 @@ const EventPage = () => {
         ) : (
           <div className="text-center py-12">
             <p className="text-gray-500 text-lg">No events found for "{categoryParam}".</p>
-            <button className="mt-4 bg-[#fff700] text-gray-900 font-semibold py-2 px-6 rounded-lg hover:bg-[#fff700]/90 transition-colors duration-300">
+            <a
+              href="/events"
+              className="mt-4 inline-block bg-yellow-400 text-gray-900 font-medium py-2 px-6 rounded hover:bg-yellow-300 transition"
+            >
               View All Events
-            </button>
+            </a>
           </div>
         )}
       </div>
