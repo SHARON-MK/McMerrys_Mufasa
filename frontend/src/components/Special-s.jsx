@@ -2,7 +2,12 @@ import { Link } from 'react-router-dom';
 
 export default function SocialEventsBooking() {
   return (
+    <>
+    <h2 className="text-3xl font-bold mb-8 text-center text-black">Our Well known services</h2>
+  
     <div className="flex items-center justify-center min-h-fit">
+       
+  
       <div className="relative w-[750px] h-[400px] rounded-xl overflow-hidden">
         {/* Background image with grayscale and opacity */}
         <div
@@ -12,7 +17,7 @@ export default function SocialEventsBooking() {
           
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
-            filter: 'grayscale(100%) opacity(0.5)',
+            filter: 'grayscale(100%) opacity(0.3)',
           }}
         ></div>
 
@@ -62,5 +67,6 @@ export default function SocialEventsBooking() {
         </div>
       </div>
     </div>
+      </>
   );
 }

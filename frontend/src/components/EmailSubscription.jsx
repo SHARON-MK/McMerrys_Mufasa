@@ -36,7 +36,7 @@ const EmailSubscription = () => {
               type="submit"
               className="bg-black text-[#fff700] px-6 py-3 rounded-lg font-semibold hover:bg-gray-800 transition flex items-center justify-center gap-2"
             >
-              Subscribe
+              Get Started
               <ArrowRight className="w-5 h-5" />
             </button>
           </form>
