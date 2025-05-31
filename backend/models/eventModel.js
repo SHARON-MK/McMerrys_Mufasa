@@ -47,16 +47,6 @@ const eventSchema = new mongoose.Schema({
     type: String,
     default: 'Flexible'
   },
-  rating: {
-    average: {
-      type: Number,
-      default: 0
-    },
-    count: {
-      type: Number,
-      default: 0
-    }
-  },
   isActive: {
     type: Boolean,
     default: true
