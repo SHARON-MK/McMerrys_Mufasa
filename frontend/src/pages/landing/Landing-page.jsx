@@ -18,7 +18,7 @@ const Landing = () => {
      
       {/* <FeaturedGrid /> */}
       <NetflixStyleGrid/>
-      <Services />
+      {/* <Services /> */}
       <AdsCarousel/>
       <SocialEventsBooking/>
          <MCMerrysFAQ/>

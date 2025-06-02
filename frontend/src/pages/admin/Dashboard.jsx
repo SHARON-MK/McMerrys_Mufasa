@@ -45,26 +45,26 @@ const Dashboard = () => {
     };
 
     return (
-        <div className="p-6">
-            <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
+        <div className="p-4 sm:p-6 lg:p-8">
+            <h1 className="text-2xl sm:text-3xl font-bold mb-6">Admin Dashboard</h1>
             
             {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-                <div className="bg-white p-4 rounded-lg shadow">
-                    <h3 className="text-gray-500 text-sm">Total Bookings</h3>
-                    <p className="text-2xl font-bold">{stats.totalBookings}</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
+                <div className="bg-white p-4 sm:p-6 rounded-lg shadow hover:shadow-md transition-shadow">
+                    <h3 className="text-gray-500 text-sm sm:text-base">Total Bookings</h3>
+                    <p className="text-2xl sm:text-3xl font-bold mt-2">{stats.totalBookings}</p>
                 </div>
-                <div className="bg-white p-4 rounded-lg shadow">
-                    <h3 className="text-gray-500 text-sm">Pending Bookings</h3>
-                    <p className="text-2xl font-bold">{stats.pendingBookings}</p>
+                <div className="bg-white p-4 sm:p-6 rounded-lg shadow hover:shadow-md transition-shadow">
+                    <h3 className="text-gray-500 text-sm sm:text-base">Pending Bookings</h3>
+                    <p className="text-2xl sm:text-3xl font-bold mt-2">{stats.pendingBookings}</p>
                 </div>
-                <div className="bg-white p-4 rounded-lg shadow">
-                    <h3 className="text-gray-500 text-sm">Total Events</h3>
-                    <p className="text-2xl font-bold">{stats.totalEvents}</p>
+                <div className="bg-white p-4 sm:p-6 rounded-lg shadow hover:shadow-md transition-shadow">
+                    <h3 className="text-gray-500 text-sm sm:text-base">Total Events</h3>
+                    <p className="text-2xl sm:text-3xl font-bold mt-2">{stats.totalEvents}</p>
                 </div>
-                <div className="bg-white p-4 rounded-lg shadow">
-                    <h3 className="text-gray-500 text-sm">Categories</h3>
-                    <p className="text-2xl font-bold">{stats.totalCategories}</p>
+                <div className="bg-white p-4 sm:p-6 rounded-lg shadow hover:shadow-md transition-shadow">
+                    <h3 className="text-gray-500 text-sm sm:text-base">Categories</h3>
+                    <p className="text-2xl sm:text-3xl font-bold mt-2">{stats.totalCategories}</p>
                 </div>
             </div>
 
@@ -121,22 +121,22 @@ const Dashboard = () => {
             </div>
 
             {/* Quick Actions */}
-            <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 <button 
                     onClick={() => navigate('/admin/events/create')}
-                    className="bg-blue-600 text-white p-4 rounded-lg hover:bg-blue-700"
+                    className="bg-blue-600 text-white p-4 sm:p-6 rounded-lg hover:bg-blue-700 transition-colors text-sm sm:text-base"
                 >
                     Create New Event
                 </button>
                 <button 
                     onClick={() => navigate('/admin/categories/create')}
-                    className="bg-green-600 text-white p-4 rounded-lg hover:bg-green-700"
+                    className="bg-green-600 text-white p-4 sm:p-6 rounded-lg hover:bg-green-700 transition-colors text-sm sm:text-base"
                 >
                     Add New Category
                 </button>
                 <button 
                     onClick={() => navigate('/admin/bookings')}
-                    className="bg-purple-600 text-white p-4 rounded-lg hover:bg-purple-700"
+                    className="bg-purple-600 text-white p-4 sm:p-6 rounded-lg hover:bg-purple-700 transition-colors text-sm sm:text-base"
                 >
                     Manage Bookings
                 </button>
