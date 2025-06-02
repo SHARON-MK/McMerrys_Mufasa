@@ -24,17 +24,17 @@ const Header = () => {
     }`}>
       <div className="container mx-auto px-4">
         <Link to="/">
-          <div className="flex items-center h-16 sm:h-20">
+          <div className="flex items-center h-16 sm:h-20 justify-between">
             <img 
               src={logo} 
               alt="MC MERRYS Logo" 
               className="h-6 sm:h-10 md:h-12 w-auto "
             />
-            {/* <h1 className={`text-lg sm:text-xl md:text-2xl font-bold tracking-wider ${
+            <h1 className={`text-lg sm:text-xl md:text-2xl  font-bold tracking-wider ${
               isScrolled ? 'text-yellow-300' : 'text-yellow-300'
             }`}>
               MC MERRYS
-            </h1> */}
+            </h1>
           </div>
         </Link>
       </div>

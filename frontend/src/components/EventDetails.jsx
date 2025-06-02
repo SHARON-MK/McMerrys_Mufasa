@@ -50,6 +50,11 @@ const EventDetails = () => {
     };
   }, [dispatch, id]);
 
+    useEffect(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, []);
+    
+
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     

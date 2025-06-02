@@ -44,7 +44,7 @@ const AdsCarousel = () => {
                     initial={{ x: -50, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: 0.3, duration: 0.6 }}
-                    className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-1 sm:mb-8"
+                    className="text-lg sm:text-xl md:text-2xl  lg:text-3xl font-bold mb-1 sm:mb-8"
                   >
                     Premium Event Services
                   </motion.h3>
@@ -52,7 +52,7 @@ const AdsCarousel = () => {
                     initial={{ x: -50, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: 0.5, duration: 0.6 }}
-                    className="text-sm sm:text-base md:text-lg opacity-90"
+                    className="text-sm sm:text-base md:text-lg  opacity-90"
                   >
                     Experience luxury like never before
                   </motion.p>

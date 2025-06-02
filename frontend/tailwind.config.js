@@ -5,6 +5,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+
+       fontFamily: {
+        netflix: ['"Bebas Neue"', 'sans-serif'],
+      },
       animation: {
         'gradient-x': 'gradient-x 15s ease infinite',
         'float': 'float 6s ease-in-out infinite',

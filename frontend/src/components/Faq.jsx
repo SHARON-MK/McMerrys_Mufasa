@@ -73,10 +73,10 @@ const MCMerrysFAQ = () => {
           <div className="inline-flex items-center justify-center w-16 h-16 bg-black/10 rounded-full mb-6">
             <HelpCircle className="w-8 h-8 text-black" />
           </div>
-          <h2 className="text-4xl font-bold mb-4 text-black">
+          <h2 className="text-4xl font-bold mb-4  text-black">
             Frequently Asked Questions
           </h2>
-          <p className="text-xl text-black/80 mb-6">
+          <p className="text-xl  text-black/80 mb-6">
             Everything you need to know about MC Merrys
           </p>
           <button
@@ -95,7 +95,7 @@ const MCMerrysFAQ = () => {
             return (
               <div
                 key={item.id}
-                className="bg-white/20 backdrop-blur-sm rounded-xl border border-white/30 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+                className="bg-white/20  backdrop-blur-sm rounded-xl border border-white/30 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
               >
                 <button
                   onClick={() => toggleItem(item.id)}

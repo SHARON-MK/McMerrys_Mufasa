@@ -15,8 +15,8 @@ const EmailSubscription = () => {
     <section className="py-16 bg-[#fff700]">
       <div className="container mx-auto px-4">
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4 text-black">Stay Updated</h2>
-          <p className="text-gray-700 mb-8">Subscribe to our newsletter for the latest updates and exclusive offers</p>
+          <h2 className="text-3xl font-bold font-netflix mb-4 text-black">Stay Updated</h2>
+          <p className="text-gray-700 font-netflix mb-8">Subscribe to our newsletter for the latest updates and exclusive offers</p>
           
           <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-4 justify-center">
             <div className="relative flex-grow max-w-md">
@@ -41,7 +41,7 @@ const EmailSubscription = () => {
             </button>
           </form>
 
-          <p className="mt-4 text-sm text-gray-600">
+          <p className="mt-4 text-sm  text-gray-600">
             By subscribing, you agree to our Privacy Policy and consent to receive updates from our company.
           </p>
         </div>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 export default function SocialEventsBooking() {
   return (
     <>
-    <h2 className="text-3xl font-bold mb-8 text-center text-black">Our Well known services</h2>
+    <h2 className="text-3xl font-bold mb-8 text-center  text-black">Our Well known services</h2>
   
     <div className="flex items-center justify-center min-h-fit">
        
@@ -33,7 +33,7 @@ export default function SocialEventsBooking() {
                   className="w-16 h-16 rounded-full object-cover"
                 />
               </div>
-              <span className="mt-2 text-black font-bold text-lg">Corporate Events</span>
+              <span className="mt-2 text-black font-bold font-netflix text-lg">Corporate Events</span>
             </Link>
           </div>
 
@@ -47,7 +47,7 @@ export default function SocialEventsBooking() {
                   className="w-16 h-16 rounded-full object-cover"
                 />
               </div>
-              <span className="mt-2 text-black font-bold text-lg">Social Events</span>
+              <span className="mt-2 text-black font-bold font-netflix text-lg">Social Events</span>
             </Link>
           </div>
 
@@ -61,7 +61,7 @@ export default function SocialEventsBooking() {
                   className="w-16 h-16 rounded-full object-cover"
                 />
               </div>
-              <span className="mt-2 text-black font-bold text-lg">School Events</span>
+              <span className="mt-2 text-black font-bold font-netflix text-lg">School Events</span>
             </Link>
           </div>
         </div>

@@ -9,6 +9,8 @@ const gridItems = [
       "From concept to clean-up, we handle everything—planning, logistics, vendor coordination, and on-site management—so clients can relax and enjoy their event.",
     icon: CheckCircle,
     gradient: "from-blue-600 to-purple-700",
+    iconColor: "text-green-500",
+    iconBg: "bg-green-100",
   },
   {
     id: 2,
@@ -17,6 +19,8 @@ const gridItems = [
       "We don't believe in one-size-fits-all. Our team brings fresh, personalized ideas that align with your vision, brand, and audience.",
     icon: Lightbulb,
     gradient: "from-orange-500 to-red-600",
+    iconColor: "text-yellow-500",
+    iconBg: "bg-yellow-100",
   },
   {
     id: 3,
@@ -25,6 +29,8 @@ const gridItems = [
       "We know how to create incredible experiences without overspending. Smart planning, cost-saving strategies, and transparency are part of our process.",
     icon: DollarSign,
     gradient: "from-green-500 to-emerald-600",
+    iconColor: "text-emerald-600",
+    iconBg: "bg-emerald-100",
   },
   {
     id: 4,
@@ -33,6 +39,8 @@ const gridItems = [
       "We listen. Your goals become our mission. We're flexible, responsive, and dedicated to making your event memorable and meaningful.",
     icon: Heart,
     gradient: "from-pink-500 to-rose-600",
+    iconColor: "text-pink-500",
+    iconBg: "bg-pink-100",
   },
   {
     id: 5,
@@ -41,6 +49,8 @@ const gridItems = [
       "Since we're organizing the entire event ourselves, there's no stress or delays caused by dealing with third parties — everything is under our control.",
     icon: Clock,
     gradient: "from-indigo-500 to-blue-600",
+    iconColor: "text-blue-600",
+    iconBg: "bg-blue-100",
   },
 ];
 
@@ -145,7 +155,7 @@ const NetflixStyleGrid = () => {
   return (
     <section className="py-16 ">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-8 text-black">
+        <h2 className="text-3xl font-bold mb-8  text-black">
           Even more reasons to be part of this.
         </h2>
 
@@ -203,7 +213,7 @@ const NetflixStyleGrid = () => {
             {duplicatedItems.map((item, index) => {
               const IconComponent = item.icon;
               return (
-                <div key={`${item.id}-${index}`} className="flex-none w-[300px] group/card">
+                <div key={`${item.id}-${index}`} className="flex-none w-[300px]  group/card">
                   <div className={`relative overflow-hidden rounded-lg bg-gradient-to-br shadow-lg border border-gray-300 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 p-6 h-[280px] flex flex-col justify-between cursor-pointer`}>
                     {/* Content */}
                     <div className="flex-1">
@@ -215,10 +225,10 @@ const NetflixStyleGrid = () => {
                       </p>
                     </div>
                     
-                    {/* Icon in bottom right */}
+                    {/* Colorful Icon in bottom right */}
                     <div className="flex justify-end">
-                      <div className="bg-black/20 backdrop-blur-sm rounded-full p-3 group-hover/card:bg-black/30 transition-all duration-300">
-                        <IconComponent className="w-6 h-6 text-black" />
+                      <div className={`${item.iconBg} backdrop-blur-sm rounded-full p-3 group-hover/card:scale-110 transition-all duration-300 shadow-lg`}>
+                        <IconComponent className={`w-6 h-6 ${item.iconColor}`} />
                       </div>
                     </div>
                     

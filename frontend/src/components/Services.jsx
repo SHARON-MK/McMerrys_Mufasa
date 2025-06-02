@@ -46,7 +46,7 @@ const Services = () => {
   return (
     <section className="py-16 bg-[#fff700]">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-8 text-center text-black">Our Services</h2>
+        <h2 className="text-3xl font-bold mb-8  text-center text-black">Our Services</h2>
 
         {/* Responsive container for cards */}
         <div className="relative">
