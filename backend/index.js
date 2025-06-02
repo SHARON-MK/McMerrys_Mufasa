@@ -4,7 +4,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 const morgan = require('morgan');
 const connectDB = require('./config/db');
-require('dotenv').config();
+dotenv.config();
 
 // ✅ Import Routes (Ensure these filenames exist exactly as written)
 const adminRoute =require("./routes/adminRoute");

@@ -4,8 +4,8 @@
   "description": "Event booking system backend",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "node index.js"
+    "start": "node index.js"
+    
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
