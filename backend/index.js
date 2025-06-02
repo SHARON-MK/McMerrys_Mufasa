@@ -41,7 +41,7 @@ app.use('/api/user', userRoute);
 app.use('/api/bookings', bookingRoute);
 app.use('/api/auth', authRoute);
 
-// ❌ 404 Not Found
+
 app.use((req, res, next) => {
   res.status(404).json({ message: 'Route not found' });
 });
