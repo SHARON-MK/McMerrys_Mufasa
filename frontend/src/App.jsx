@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-
 import './App.css';
 import McMerrysLoader from './components/Loader';
 import Landing from './pages/landing/Landing-page';
@@ -12,6 +11,8 @@ import Dashboard from './pages/admin/Dashboard';
 import Events from './pages/admin/Events';
 import Bookings from './pages/admin/Bookings';
 import Categories from './pages/admin/Categories';
+import EventDetails from './components/EventDetails';
+import PublicLayout from './layout';
 
 // Protected Route component for admin routes
 const ProtectedRoute = ({ children }) => {
@@ -60,7 +61,9 @@ function App() {
                     path="/"
                     element={
                         <PublicRoute>
+                            <PublicLayout>
                             <Landing />
+                            </PublicLayout>
                         </PublicRoute>
                     }
                 />
@@ -68,7 +71,19 @@ function App() {
                     path="/event"
                     element={
                         <PublicRoute>
+                            <PublicLayout>
                             <EventPage />
+                            </PublicLayout>
+                        </PublicRoute>
+                    }
+                />
+                 <Route
+                    path="/event-details/:id"
+                    element={
+                        <PublicRoute>
+                            <PublicLayout>
+                            <EventDetails />
+                            </PublicLayout>
                         </PublicRoute>
                     }
                 />
@@ -121,6 +136,7 @@ function App() {
                     }
                 />
             </Routes>
+           
         </Router>
     );
 }

@@ -1,6 +1,22 @@
 const express = require('express');
 const Event = require('../models/eventModel');
 const Category = require('../models/categoryModel');
+const cloudinary = require('../config/cloudinary');
+const streamifier = require('streamifier');
+
+
+const uploadToCloudinary = (buffer) => {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: 'categories', resource_type: 'image' },
+      (error, result) => {
+        if (result) resolve(result);
+        else reject(error);
+      }
+    );
+    streamifier.createReadStream(buffer).pipe(stream);
+  });
+};
 
 const getAdmin = (req, res) => {
     try {
@@ -14,28 +30,36 @@ const getAdmin = (req, res) => {
 
 // Category CRUD Operations
 const createCategory = async (req, res) => {
-    try {
-        const { name, description, image, eventTypes } = req.body;
-        
-        const slug = name.toLowerCase().replace(/[^a-z0-9]/g, '-');
-        
-        const category = new Category({
-            name,
-            slug,
-            description,
-            image,
-            eventTypes: eventTypes?.map(et => ({
-                ...et,
-                slug: et.name.toLowerCase().replace(/[^a-z0-9]/g, '-')
-            })) || []
-        });
+  try {
+    const { name, description, isActive } = req.body;
 
-        await category.save();
-        res.status(201).json(category);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
+    if (!req.file) return res.status(400).json({ message: 'Image is required' });
+
+    // Upload image to Cloudinary (fast, streamed)
+    const result = await uploadToCloudinary(req.file.buffer);
+
+    const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+
+    const category = await Category.create({
+      name,
+      slug,
+      description,
+      image: result.secure_url,
+      isActive: isActive === 'true'
+    });
+
+    // Respond with minimal data
+    res.status(201).json({
+      id: category._id,
+      name: category.name,
+      slug: category.slug,
+      image: category.image
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
+
 
 const getAllCategories = async (req, res) => {
     try {
@@ -59,34 +83,38 @@ const getCategoryById = async (req, res) => {
 };
 
 const updateCategory = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const { name, description, image, eventTypes } = req.body;
+  try {
+    const { id } = req.params;
+    const { name, description, eventTypes, isActive } = req.body;
 
-        const category = await Category.findById(id);
-        if (!category) {
-            return res.status(404).json({ message: 'Category not found' });
-        }
-
-        if (name) {
-            category.name = name;
-            category.slug = name.toLowerCase().replace(/[^a-z0-9]/g, '-');
-        }
-        if (description) category.description = description;
-        if (image) category.image = image;
-        if (eventTypes) {
-            category.eventTypes = eventTypes.map(et => ({
-                ...et,
-                slug: et.name.toLowerCase().replace(/[^a-z0-9]/g, '-')
-            }));
-        }
-
-        await category.save();
-        res.status(200).json(category);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
+    const category = await Category.findById(id);
+    if (!category) {
+      return res.status(404).json({ message: 'Category not found' });
     }
+
+    if (name) {
+      category.name = name;
+      category.slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    }
+    if (description) category.description = description;
+    if (typeof isActive !== 'undefined') category.isActive = isActive === 'true' || isActive === true;
+
+    if (req.file) {
+      // Upload new image to Cloudinary
+      const result = await uploadToCloudinary(req.file.buffer);
+      category.image = result.secure_url;
+    }
+
+  
+
+    await category.save();
+
+    res.status(200).json(category);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
+
 
 const deleteCategory = async (req, res) => {
     try {
@@ -102,17 +130,33 @@ const deleteCategory = async (req, res) => {
 
 // Event CRUD Operations
 const createEvent = async (req, res) => {
-    try {
-        const event = new Event({
-            ...req.body,
-            createdBy: req.user._id // Assuming you have user info in req.user
-        });
-        await event.save();
-        res.status(201).json(event);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
+  try {
+    const { title, description, category, price, duration, capacity, features } = req.body;
+
+    if (!req.file) {
+      return res.status(400).json({ message: 'Image is required' });
     }
+
+    // Upload image to Cloudinary
+    const result = await uploadToCloudinary(req.file.buffer); // Assuming this utility exists
+
+    const event = new Event({
+      title,
+      description,
+      category,
+      // Same for capacity
+      features: JSON.parse(features), // Same for features if sent as stringified array
+      image: result.secure_url,
+      createdBy: req.user._id
+    });
+
+    await event.save();
+    res.status(201).json(event);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
+
 
 const getAllEvents = async (req, res) => {
     try {

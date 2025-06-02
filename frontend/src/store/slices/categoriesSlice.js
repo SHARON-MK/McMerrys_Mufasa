@@ -27,6 +27,21 @@ export const createCategory = createAsyncThunk(
     }
 );
 
+export const updateCategory = createAsyncThunk(
+    'categories/updateCategory',
+    async ({ categoryId, categoryData }, { rejectWithValue }) => {
+        try {
+            const response = await axiosInstance.put(
+                ADMIN_ENDPOINTS.CATEGORY_BY_ID(categoryId),
+                categoryData
+            );
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
+
 export const deleteCategory = createAsyncThunk(
     'categories/deleteCategory',
     async (categoryId, { rejectWithValue }) => {
@@ -78,6 +93,22 @@ const categoriesSlice = createSlice({
             .addCase(createCategory.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload?.message || 'Failed to create category';
+            })
+            // Update Category
+            .addCase(updateCategory.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(updateCategory.fulfilled, (state, action) => {
+                state.loading = false;
+                const index = state.items.findIndex(category => category._id === action.payload._id);
+                if (index !== -1) {
+                    state.items[index] = action.payload;
+                }
+            })
+            .addCase(updateCategory.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload?.message || 'Failed to update category';
             })
             // Delete Category
             .addCase(deleteCategory.pending, (state) => {

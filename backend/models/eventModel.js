@@ -19,34 +19,9 @@ const eventSchema = new mongoose.Schema({
     ref: 'Category',
     required: true
   },
-  eventType: {
-    type: String,
-    required: true
-  },
-  price: {
-    starting: {
-      type: Number,
-      required: true
-    },
-    premium: {
-      type: Number,
-      required: true
-    }
-  },
-  duration: {
-    type: String,
-    required: true
-  },
-  capacity: {
-    min: Number,
-    max: Number
-  },
+ 
   features: [String],
-  images: [String],
-  location: {
-    type: String,
-    default: 'Flexible'
-  },
+ 
   isActive: {
     type: Boolean,
     default: true

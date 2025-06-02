@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import logo from '../../public/logo/logo.png';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -22,18 +23,20 @@ const Header = () => {
       isScrolled ? 'shadow-lg bg-black bg-opacity-50 text-white' : ' text-black'
     }`}>
       <div className="container mx-auto px-4">
-      <Link to="/">
-        <div className="flex justify-start h-10 sm:h-12 md:h-14">
-           
-           
-          <h1 className={`text-lg sm:text-xl md:text-2xl font-bold text-black tracking-wider flex items-center${
-      isScrolled ? ' text-yellow-300' : ' text-yellow-300'
-    }`}>
-            MC MERRYS
-          </h1>
-       
-        </div>
-           </Link>
+        <Link to="/">
+          <div className="flex items-center h-16 sm:h-20">
+            <img 
+              src={logo} 
+              alt="MC MERRYS Logo" 
+              className="h-6 sm:h-10 md:h-12 w-auto "
+            />
+            {/* <h1 className={`text-lg sm:text-xl md:text-2xl font-bold tracking-wider ${
+              isScrolled ? 'text-yellow-300' : 'text-yellow-300'
+            }`}>
+              MC MERRYS
+            </h1> */}
+          </div>
+        </Link>
       </div>
     </header>
   );

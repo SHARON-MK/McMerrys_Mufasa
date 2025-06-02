@@ -19,8 +19,8 @@ export const ADMIN_ENDPOINTS = {
 
 // Public Endpoints
 export const PUBLIC_ENDPOINTS = {
-    EVENTS: `${API_BASE_URL}/events`,
-    EVENT_BY_ID: (id) => `${API_BASE_URL}/events/${id}`,
+    EVENTS: `${API_BASE_URL}/user/events`,
+    EVENT_BY_ID: (id) => `${API_BASE_URL}/user/events/${id}`,
     CATEGORIES: `${API_BASE_URL}/categories`,
     CATEGORY_BY_ID: (id) => `${API_BASE_URL}/categories/${id}`,
     BOOKINGS: `${API_BASE_URL}/bookings`,

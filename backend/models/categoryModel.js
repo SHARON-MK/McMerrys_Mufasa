@@ -9,7 +9,6 @@ const categorySchema = new mongoose.Schema({
   },
   slug: {
     type: String,
-    required: true,
     unique: true,
     lowercase: true
   },
@@ -25,16 +24,7 @@ const categorySchema = new mongoose.Schema({
     type: Boolean,
     default: true
   },
-  eventTypes: [{
-    name: String,
-    slug: String,
-    description: String,
-    image: String,
-    isActive: {
-      type: Boolean,
-      default: true
-    }
-  }]
+ 
 }, {
   timestamps: true
 });

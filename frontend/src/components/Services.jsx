@@ -1,72 +1,47 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-
-const allServices = [
-  {
-    title: "Birthday Events",
-    description: "Kids, teens, adults and milestone birthdays.",
-    image: "https://source.unsplash.com/random/400x300?birthday-party"
-  },
-  {
-    title: "Social Events",
-    description: "Anniversaries, housewarmings, baby showers, and reunions.",
-    image: "https://source.unsplash.com/random/400x300?social-event"
-  },
-  {
-    title: "Corporate Events",
-    description: "Product launches, conferences, team-building activities.",
-    image: "https://source.unsplash.com/random/400x300?corporate-event"
-  },
-  {
-    title: "School Events",
-    description: "Annual days, youth festivals, IV tours, and decorations.",
-    image: "https://source.unsplash.com/random/400x300?school-event"
-  },
-  {
-    title: "Children's Birthday",
-    description: "Fun-filled themed parties for kids.",
-    image: "https://source.unsplash.com/random/400x300?kids-birthday"
-  },
-  {
-    title: "Teens' Birthday",
-    description: "Trendy celebrations for teenagers.",
-    image: "https://source.unsplash.com/random/400x300?teen-party"
-  },
-  {
-    title: "Adult Birthday",
-    description: "Elegant birthday celebrations for adults.",
-    image: "https://source.unsplash.com/random/400x300?adult-party"
-  },
-  {
-    title: "Milestone Birthday",
-    description: "Celebrate big moments like 18th, 25th, 50th birthdays.",
-    image: "https://source.unsplash.com/random/400x300?milestone-party"
-  },
-  {
-    title: "Engagements & Haldi",
-    description: "Pre-wedding events with traditional vibes.",
-    image: "https://source.unsplash.com/random/400x300?engagement"
-  },
-  {
-    title: "Naming & Baby Showers",
-    description: "Heartwarming ceremonies for newborns.",
-    image: "https://source.unsplash.com/random/400x300?baby-shower"
-  },
-  {
-    title: "Religious Events",
-    description: "Spiritual setups for sacred occasions.",
-    image: "https://source.unsplash.com/random/400x300?religious"
-  }
-];
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchEvents } from '../store/slices/eventsSlice';
+import { Link } from 'react-router-dom';
 
 const Services = () => {
+  const dispatch = useDispatch();
+  const { items: events, loading, error } = useSelector((state) => state.events);
   const scrollRef = useRef(null);
+
+  useEffect(() => {
+    dispatch(fetchEvents());
+  }, [dispatch]);
 
   const scroll = (offset) => {
     if (scrollRef.current) {
       scrollRef.current.scrollBy({ left: offset, behavior: 'smooth' });
     }
   };
+
+  if (loading) {
+    return (
+      <section className="py-16 bg-[#fff700]">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-center items-center min-h-[400px]">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-black"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="py-16 bg-[#fff700]">
+        <div className="container mx-auto px-4">
+          <div className="text-center text-red-600">
+            {error}
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-16 bg-[#fff700]">
@@ -88,21 +63,25 @@ const Services = () => {
             ref={scrollRef}
             className="flex flex-col items-center lg:flex-row lg:overflow-x-auto lg:gap-6 gap-6 lg:px-12 scrollbar-hide"
           >
-            {allServices.map((service, index) => (
-              <div
-                key={index}
-                className="w-[90%] sm:w-[400px] md:w-[350px] lg:w-[300px] h-[400px] bg-black/50 rounded-lg border border-[#fff700]/20 overflow-hidden flex-shrink-0 flex flex-col"
+            {events.map((event, index) => (
+              <Link
+                to={`/event-details/${event._id}`}
+                key={event._id || index}
+                className="w-[90%] sm:w-[400px] md:w-[350px] lg:w-[300px] h-[400px] bg-black/50 rounded-lg border border-[#fff700]/20 overflow-hidden flex-shrink-0 flex flex-col hover:transform hover:scale-105 transition-transform duration-300"
               >
                 <img
-                  src={service.image}
-                  alt={service.title}
+                  src={event.image}
+                  alt={event.title}
                   className="w-full h-[200px] object-cover"
                 />
-                <div className="p-4 flex-1 flex flex-col justify-between">
-                  <h3 className="text-lg font-semibold text-[#fff700] mb-1">{service.title}</h3>
-                  <p className="text-gray-300 text-sm line-clamp-3">{service.description}</p>
+                <div className="p-4 flex-1 flex flex-col">
+                  <h3 className="text-lg font-semibold text-[#fff700]">{event.title}</h3>
+                  <p className="text-gray-300 text-sm mt-1 line-clamp-3">{event.description}</p>
+                  <div className="mt-auto pt-2">
+                    <span className="text-[#fff700] text-sm font-medium">View Details →</span>
+                  </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
 

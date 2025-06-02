@@ -30,6 +30,7 @@ const authSlice = createSlice({
         loading: false,
         error: null
     },
+    
     reducers: {
         clearError: (state) => {
             state.error = null;
