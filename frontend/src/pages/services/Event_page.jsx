@@ -27,59 +27,55 @@ const EventPage = () => {
   );
 
   return (
-    <div className="min-h-screen bg-[#fff700] py-28 px-4">
+    <div className="min-h-screen bg-[#fff700] py-28 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-      <button
+        <button
           onClick={() => navigate(-1)}
-          className="mb-8 text-black font-bold hover:underline flex items-center"
+          className="mb-8 text-black font-bold hover:underline flex items-center text-sm sm:text-base"
         >
           ← Back to Home
         </button>
         <div className="text-center mb-10">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 capitalize">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 capitalize">
             {categoryParam} Events
           </h1>
-          <p className="text-gray-500 mt-1 text-sm">
+          <p className="text-gray-500 mt-2 text-sm sm:text-base">
             Curated {categoryParam?.toLowerCase()} event experiences.
           </p>
         </div>
 
         {filteredEvents.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
             {filteredEvents.map((event, idx) => (
-              <Link to = {`/event-details/${event._id}`}>
-              <div
-                key={idx}
-                className="bg-white rounded-xl shadow hover:shadow-lg transition-transform hover:-translate-y-1"
-              >
-                <img
-                  src={event.image}
-                  alt={event.name}
-                  className="w-full h-32 object-cover rounded-t-xl"
-                />
-                <div className="p-3">
-                  <div className="flex justify-between items-center mb-1">
-                    <h2 className="text-base font-semibold text-gray-800">{event.title}</h2>
-                    <span className="text-xs bg-yellow-300 text-gray-900 px-2 py-0.5 rounded-full">
-                      {event.category.name}
-                    </span>
+              <Link to={`/event-details/${event._id}`} key={idx}>
+                <div className="bg-white rounded-xl shadow hover:shadow-lg transition-transform hover:-translate-y-1 h-full">
+                  <img
+                    src={event.image}
+                    alt={event.title}
+                    className="w-full h-40 sm:h-48 md:h-56 object-cover rounded-t-xl"
+                  />
+                  <div className="p-4 sm:p-5">
+                    <div className="flex justify-between items-center mb-2">
+                      <h2 className="text-base sm:text-lg font-semibold text-gray-800 line-clamp-1">{event.title}</h2>
+                      <span className="text-xs sm:text-sm bg-yellow-300 text-gray-900 px-2 py-1 rounded-full whitespace-nowrap">
+                        {event.category.name}
+                      </span>
+                    </div>
+                    <p className="text-sm sm:text-base text-gray-600 line-clamp-2 mb-3">{event.description}</p>
+                    <button className="w-full text-sm sm:text-base bg-yellow-400 text-gray-900 font-medium py-2 rounded hover:bg-yellow-300 transition-colors">
+                      Learn More
+                    </button>
                   </div>
-                  <p className="text-sm text-gray-600 line-clamp-2">{event.description}</p>
-                  <button className="mt-3 w-full text-sm bg-yellow-400 text-gray-900 font-medium py-1.5 rounded hover:bg-yellow-300 transition-colors">
-                    Learn More
-                  </button>
                 </div>
-              </div>
-
               </Link>
             ))}
           </div>
         ) : (
-          <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">No events found for "{categoryParam}".</p>
+          <div className="text-center py-12 sm:py-16">
+            <p className="text-gray-500 text-base sm:text-lg md:text-xl">No events found for "{categoryParam}".</p>
             <a
               href="/events"
-              className="mt-4 inline-block bg-yellow-400 text-gray-900 font-medium py-2 px-6 rounded hover:bg-yellow-300 transition"
+              className="mt-4 inline-block bg-yellow-400 text-gray-900 font-medium py-2 px-6 rounded hover:bg-yellow-300 transition text-sm sm:text-base"
             >
               View All Events
             </a>
