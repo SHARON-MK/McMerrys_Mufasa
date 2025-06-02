@@ -1,15 +1,16 @@
-require('dotenv').config();
+const dotenv = require('dotenv');
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 const morgan = require('morgan');
 const connectDB = require('./config/db');
+require('dotenv').config();
 
 // ✅ Import Routes (Ensure these filenames exist exactly as written)
-const adminRoutes = require('./routes/adminRoutes');
-const bookingRoutes = require('./routes/bookingRoutes');
-const authRoutes = require('./routes/authRoutes');
-const userRoutes = require('./routes/userRoutes'); // ✅ Fixed: plural 'Routes'
+const adminRoute =require("./routes/adminRoute");
+const bookingRoute= require("./routes/bookingRoute");
+const authRoute = require("./routes/authRoute");
+const userRoute= require("./routes/userRoute"); // ✅ Fixed: plural 'Routes'
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -22,7 +23,7 @@ app.use(helmet());
 
 // 📦 JSON Parser
 app.use(express.json());
-
+app.use(express.urlencoded({ extended: true }));
 // 📝 Logger
 app.use(morgan('dev'));
 
@@ -35,10 +36,10 @@ app.get('/', (req, res) => {
 });
 
 // 🚏 Routes
-app.use('/api/admin', adminRoutes);
-app.use('/api/user', userRoutes);
-app.use('/api/bookings', bookingRoutes);
-app.use('/api/auth', authRoutes);
+app.use('/api/admin', adminRoute);
+app.use('/api/user', userRoute);
+app.use('/api/bookings', bookingRoute);
+app.use('/api/auth', authRoute);
 
 // ❌ 404 Not Found
 app.use((req, res, next) => {
