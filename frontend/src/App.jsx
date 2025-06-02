@@ -33,25 +33,25 @@ const PublicRoute = ({ children }) => {
 };
 
 function App() {
-    const [loading, setLoading] = useState(true);
+    // const [loading, setLoading] = useState(true);
     const { token } = useSelector((state) => state.auth);
     const isAdminRoute = window.location.pathname.startsWith('/admin');
 
-    useEffect(() => {
-        // Only show loader for public routes
-        if (!isAdminRoute) {
-            const timer = setTimeout(() => {
-                setLoading(false);
-            }, 1500);
-            return () => clearTimeout(timer);
-        } else {
-            setLoading(false);
-        }
-    }, [isAdminRoute]);
+    // useEffect(() => {
+    //     // Only show loader for public routes
+    //     if (!isAdminRoute) {
+    //         const timer = setTimeout(() => {
+    //             setLoading(false);
+    //         }, 1500);
+    //         return () => clearTimeout(timer);
+    //     } else {
+    //         setLoading(false);
+    //     }
+    // }, [isAdminRoute]);
 
-    if (loading && !isAdminRoute) {
-        return <McMerrysLoader />;
-    }
+    // if (loading && !isAdminRoute) {
+    //     return <McMerrysLoader />;
+    // }
 
     return (
         <Router>
