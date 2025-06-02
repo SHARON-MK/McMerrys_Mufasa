@@ -8,7 +8,7 @@ export default function SocialEventsBooking() {
     <div className="flex items-center justify-center min-h-fit">
        
   
-      <div className="relative w-[750px] h-[400px] rounded-xl overflow-hidden">
+      <div className="relative w-[750px] h-[600px] rounded-xl overflow-hidden">
         {/* Background image with grayscale and opacity */}
         <div
           className="absolute inset-0 z-0"
@@ -24,7 +24,7 @@ export default function SocialEventsBooking() {
         {/* Foreground Content */}
         <div className="absolute inset-0 flex items-center justify-center z-10">
           {/* Top - Corporate Events */}
-          <div className="absolute -translate-y-20 flex flex-col items-center">
+          <div className="absolute -translate-y-52 flex flex-col items-center">
             <Link to="/event?name=Corporate Events" className="flex flex-col items-center hover:scale-105 transition-transform duration-300">
               <div className="bg-white/50 backdrop-blur-sm p-2 rounded-full shadow-lg">
                 <img 
@@ -38,7 +38,7 @@ export default function SocialEventsBooking() {
           </div>
 
           {/* Bottom left - Social Events */}
-          <div className="absolute translate-y-16 -translate-x-24 flex flex-col items-center">
+          <div className="absolute translate-y-24 -translate-x-48 flex flex-col items-center">
             <Link to="/event?name=Social Events" className="flex flex-col items-center hover:scale-105 transition-transform duration-300">
               <div className="bg-white/50 backdrop-blur-sm p-2 rounded-full shadow-lg">
                 <img 
@@ -52,7 +52,7 @@ export default function SocialEventsBooking() {
           </div>
 
           {/* Bottom right - School Events */}
-          <div className="absolute translate-y-16 translate-x-24 flex flex-col items-center">
+          <div className="absolute translate-y-24 translate-x-48 flex flex-col items-center">
             <Link to="/event?name=School Events" className="flex flex-col items-center hover:scale-105 transition-transform duration-300">
               <div className="bg-white/50 backdrop-blur-sm p-2 rounded-full shadow-lg">
                 <img 
