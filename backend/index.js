@@ -4,6 +4,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 const morgan = require('morgan');
 const connectDB = require('./config/db');
+const bodyParser = require('body-parser');
 dotenv.config();
 
 // ✅ Import Routes (Ensure these filenames exist exactly as written)
@@ -20,7 +21,7 @@ connectDB();
 
 // 🔒 Security Middleware
 app.use(helmet());
-
+app.use(bodyParser.json())    
 // 📦 JSON Parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
