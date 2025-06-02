@@ -9,7 +9,7 @@ const connectDB = require('./config/db');
 const adminRoutes = require('./routes/adminRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
 const authRoutes = require('./routes/authRoutes');
-const userRoutes = require('./routes/userRoute'); // ✅ Fixed: plural 'Routes'
+const userRoutes = require('./routes/userRoutes'); // ✅ Fixed: plural 'Routes'
 
 const app = express();
 const PORT = process.env.PORT || 5000;
