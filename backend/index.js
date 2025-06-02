@@ -2,7 +2,6 @@ require('dotenv').config();
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
-const mongoose = require('mongoose');
 const morgan = require('morgan');
 const connectDB = require('./config/db');
 const adminRoutes = require('./routes/adminRoutes');
@@ -32,6 +31,9 @@ app.use(morgan('dev'));
 
 app.use(cors())
 
+app.get('/', (req, res) => {
+  res.json({ message: 'Welcome to McMerrys API' });
+})
 // Routes
 app.use('/api/admin', adminRoutes);
 app.use('/api/user', userRoutes);
