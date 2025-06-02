@@ -19,20 +19,20 @@ const ScrollingTextSection = () => {
   const duplicatedTexts = [...scrollingTexts, ...scrollingTexts];
 
   return (
-    <section className="bg-transparent py-3 overflow-hidden relative">
+    <section className="bg-transparent py-2  overflow-hidden relative">
       
       {/* Top scrolling row - Left to Right */}
-      <div className="relative mb-1">
+      <div className="relative mb-0.5">
         <div className="flex animate-scroll-left whitespace-nowrap">
           {duplicatedTexts.map((text, index) => (
             <div
               key={`top-${index}`}
-              className="inline-flex items-center px-4 py-1 mx-2 hover:scale-110 transition-transform duration-300 cursor-pointer group"
+              className="inline-flex items-center px-3 py-0.5 mx-1.5 hover:scale-110 transition-transform duration-300 cursor-pointer group"
             >
-              <span className="text-base md:text-lg font-medium text-black tracking-wide group-hover:text-purple-600 transition-colors duration-300">
+              <span className="text-sm md:text-base font-medium text-white tracking-wide group-hover:text-purple-600 transition-colors duration-300">
                 {text}
               </span>
-              <div className="w-1 h-1 bg-gray-400 rounded-full mx-3 flex-shrink-0 group-hover:bg-purple-500 transition-colors duration-300"></div>
+              <div className="w-0.5 h-0.5 bg-gray-400 rounded-full mx-2 flex-shrink-0 group-hover:bg-yellow-500 transition-colors duration-300"></div>
             </div>
           ))}
         </div>
@@ -44,10 +44,10 @@ const ScrollingTextSection = () => {
           {duplicatedTexts.reverse().map((text, index) => (
             <div
               key={`bottom-${index}`}
-              className="inline-flex items-center px-4 py-1 mx-2 hover:scale-110 transition-transform duration-300 cursor-pointer group"
+              className="inline-flex items-center px-3 py-0.5 mx-1.5 hover:scale-110 transition-transform duration-300 cursor-pointer group"
             >
-              <div className="w-1 h-1 bg-gray-400 rounded-full mx-3 flex-shrink-0 group-hover:bg-purple-500 transition-colors duration-300"></div>
-              <span className="text-base md:text-lg font-medium text-black tracking-wide group-hover:text-purple-600 transition-colors duration-300">
+              <div className="w-0.5 h-0.5 bg-gray-400 rounded-full mx-2 flex-shrink-0 group-hover:bg-purple-500 transition-colors duration-300"></div>
+              <span className="text-sm md:text-base font-medium text-white tracking-wide group-hover:text-purple-600 transition-colors duration-300">
                 {text}
               </span>
             </div>

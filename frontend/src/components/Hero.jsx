@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowRight, CheckCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
+import ScrollingTextSection from './ui/Scroller';
 
 
 const Hero = () => {
@@ -134,7 +135,7 @@ const Hero = () => {
                 </motion.div>
               )}
               
-              <p className="mt-3 sm:mt-4 md:mt-6 text-xs sm:text-sm text-gray-500 max-w-lg font-netflix mx-auto"> 
+              {/* <p className="mt-3 sm:mt-4 md:mt-6 text-xs sm:text-sm text-gray-500 max-w-lg font-netflix mx-auto"> 
                 By clicking "Get Started", you agree to our{' '}
                 <a href="#" className="text-blue-500 hover:text-blue-800 underline transition-colors font-medium">
                   Terms of Service
@@ -144,21 +145,22 @@ const Hero = () => {
                   Privacy Policy
                 </a>
                 .
-              </p>
+              </p> */}
             </motion.div>
           </div>
         </div>
       </div>
 
       {/* Curved bottom shape */}
-      <div className="absolute bottom-0 left-0 right-0 z-30">
+      {/* <div className="absolute bottom-0 left-0 right-0 z-30">
         <svg className="w-full" viewBox="0 0 1440 150" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M0 150 C 360 50, 1080 50, 1440 150 V 150 H 0 V 150 Z" fill="rgba(0,0,0,0.8)"/>
         </svg>
-      </div>
+      </div> */}
 
       {/* Dark overlay for blend */}
       <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-black via-black/70 to-transparent z-20"></div>
+      {/* <ScrollingTextSection/> */}
     </section>
   );
 };

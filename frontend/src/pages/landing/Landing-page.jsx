@@ -15,14 +15,16 @@ const Landing = () => {
     
       <Hero />
       {/* <ScrollingImages /> */}
-      <ScrollingTextSection/>
+     
       {/* <FeaturedGrid /> */}
       <NetflixStyleGrid/>
       <Services />
       <AdsCarousel/>
       <SocialEventsBooking/>
          <MCMerrysFAQ/>
+         
       <EmailSubscription />
+       {/* <ScrollingTextSection/> */}
     
    
     </div>
