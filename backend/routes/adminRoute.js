@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const adminController = require('../controllers/adminController');
 const bookingController = require('../controllers/bookingController');
-const { isAdmin } = require('../middleware/authMiddleware');
+const { isAdmin } = require('../middleWare/authMiddleware');
 const upload = require('../middleWare/upload');
 
 // Admin routes
