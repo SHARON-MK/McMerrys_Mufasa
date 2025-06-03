@@ -28,8 +28,19 @@ app.use(express.urlencoded({ extended: true }));
 // 📝 Logger
 app.use(morgan('dev'));
 
+
+
+const corsOptions = {
+  origin: "https://www.mcmerrys.com", // Allow only this origin
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+
 // 🌍 CORS (Basic or custom if needed)
-app.use(cors());
+
+// app.use(cors());
 
 // ✅ Basic route check
 app.get('/', (req, res) => {
