@@ -17,13 +17,13 @@ const Landing = () => {
       {/* <ScrollingImages /> */}
      
       {/* <FeaturedGrid /> */}
-      {/* <NetflixStyleGrid/>
+       <NetflixStyleGrid/>
       <Services />
       <AdsCarousel/>
       <SocialEventsBooking/>
          <MCMerrysFAQ/>
          
-      <EmailSubscription /> */}
+      <EmailSubscription /> 
        {/* <ScrollingTextSection/> */}
     
    

@@ -12,7 +12,7 @@ import Events from './pages/admin/Events';
 import Bookings from './pages/admin/Bookings';
 import Categories from './pages/admin/Categories';
 import EventDetails from './components/EventDetails';
-// import PublicLayout from './layout';
+import PublicLayout from './layout';
 
 // Protected Route component for admin routes
 const ProtectedRoute = ({ children }) => {
@@ -33,25 +33,25 @@ const PublicRoute = ({ children }) => {
 };
 
 function App() {
-    // const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
     const { token } = useSelector((state) => state.auth);
     const isAdminRoute = window.location.pathname.startsWith('/admin');
 
-    // useEffect(() => {
-    //     // Only show loader for public routes
-    //     if (!isAdminRoute) {
-    //         const timer = setTimeout(() => {
-    //             setLoading(false);
-    //         }, 1500);
-    //         return () => clearTimeout(timer);
-    //     } else {
-    //         setLoading(false);
-    //     }
-    // }, [isAdminRoute]);
+    useEffect(() => {
+        // Only show loader for public routes
+        if (!isAdminRoute) {
+            const timer = setTimeout(() => {
+                setLoading(false);
+            }, 1500);
+            return () => clearTimeout(timer);
+        } else {
+            setLoading(false);
+        }
+    }, [isAdminRoute]);
 
-    // if (loading && !isAdminRoute) {
-    //     return <McMerrysLoader />;
-    // }
+    if (loading && !isAdminRoute) {
+        return <McMerrysLoader />;
+    }
 
     return (
         <Router>
@@ -61,9 +61,9 @@ function App() {
                     path="/"
                     element={
                         <PublicRoute>
-                            {/* <PublicLayout> */}
+                            <PublicLayout>
                             <Landing />
-                            {/* </PublicLayout> */}
+                            </PublicLayout>
                         </PublicRoute>
                     }
                 />
@@ -71,9 +71,9 @@ function App() {
                     path="/event"
                     element={
                         <PublicRoute>
-                            {/* <PublicLayout> */}
+                            <PublicLayout>
                             <EventPage />
-                            {/* </PublicLayout> */}
+                            </PublicLayout>
                         </PublicRoute>
                     }
                 />
@@ -81,9 +81,9 @@ function App() {
                     path="/event-details/:id"
                     element={
                         <PublicRoute>
-                            {/* <PublicLayout> */}
+                            <PublicLayout>
                             <EventDetails />
-                            {/* </PublicLayout> */}
+                            </PublicLayout>
                         </PublicRoute>
                     }
                 />

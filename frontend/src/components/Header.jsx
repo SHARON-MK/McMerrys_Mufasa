@@ -25,11 +25,11 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Link to="/">
           <div className="flex items-center justify-between h-16 sm:h-20">
-            {/* <img 
+            <img 
               src={logo} 
               alt="MC MERRYS Logo" 
               className="h-6 sm:h-10 md:h-12 w-auto "
-            /> */}
+            />
             <h1 className={`text-xl sm:text-2xl md:text-3xl font-bold tracking-wider ${
               isScrolled ? 'text-yellow-300' : 'text-yellow-300'
             }`}>
