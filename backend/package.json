@@ -1,5 +1,5 @@
 {
-  "name": "event-booking-backend",
+  "name": "backend",
   "version": "1.0.0",
   "description": "Event booking system backend",
   "main": "index.js",
@@ -18,11 +18,13 @@
     "mongoose": "^7.5.0",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
-    "path-to-regexp": "^8.2.0",
+    "path-to-regexp": "^0.1.7",
     "streamifier": "^0.1.1",
     "validator": "^13.11.0"
+    
   },
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "path-to-regexp": "^0.1.7"
   }
 }
