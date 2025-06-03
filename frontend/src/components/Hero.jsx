@@ -113,7 +113,7 @@ const Hero = () => {
     </div>
     <button
       onClick={handleSubmit}
-      className="w-fit bg-[#fff700] text-black px-4 font-netflix sm:px-6 md:px-8 py-3.5 sm:py-3 md:py-4 rounded-lg  transition-all duration-300 flex items-center justify-center gap-2 whitespace-nowrap shadow-lg text-sm sm:text-base hover:bg-yellow-800 transform hover:scale-105"
+      className="w-fit bg-[#fff700] text-black px-4  sm:px-6 md:px-8 py-3.5 sm:py-3 md:py-4 rounded-lg  transition-all duration-300 flex items-center justify-center gap-2 whitespace-nowrap shadow-lg text-sm sm:text-base hover:bg-yellow-800 transform hover:scale-105"
     >
       Get Started
       <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
