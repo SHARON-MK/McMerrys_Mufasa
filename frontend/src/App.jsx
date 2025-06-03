@@ -12,7 +12,7 @@ import Events from './pages/admin/Events';
 import Bookings from './pages/admin/Bookings';
 import Categories from './pages/admin/Categories';
 import EventDetails from './components/EventDetails';
-import PublicLayout from './layout';
+// import PublicLayout from './layout';
 
 // Protected Route component for admin routes
 const ProtectedRoute = ({ children }) => {
@@ -61,9 +61,9 @@ function App() {
                     path="/"
                     element={
                         <PublicRoute>
-                            <PublicLayout>
+                            {/* <PublicLayout> */}
                             <Landing />
-                            </PublicLayout>
+                            {/* </PublicLayout> */}
                         </PublicRoute>
                     }
                 />
@@ -71,9 +71,9 @@ function App() {
                     path="/event"
                     element={
                         <PublicRoute>
-                            <PublicLayout>
+                            {/* <PublicLayout> */}
                             <EventPage />
-                            </PublicLayout>
+                            {/* </PublicLayout> */}
                         </PublicRoute>
                     }
                 />
@@ -81,9 +81,9 @@ function App() {
                     path="/event-details/:id"
                     element={
                         <PublicRoute>
-                            <PublicLayout>
+                            {/* <PublicLayout> */}
                             <EventDetails />
-                            </PublicLayout>
+                            {/* </PublicLayout> */}
                         </PublicRoute>
                     }
                 />

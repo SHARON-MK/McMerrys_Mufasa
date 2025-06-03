@@ -7,7 +7,7 @@ import SocialEventsBooking from "../../components/Special-s";
 import MCMerrysFAQ from "../../components/Faq";
 import NetflixStyleGrid from "../../components/FeaturedGrid";
 import AdsCarousel from "../../components/Adcarousel";
-import ScrollingTextSection from "../../components/ui/Scroller";
+
 
 const Landing = () => {
   return (
@@ -17,13 +17,13 @@ const Landing = () => {
       {/* <ScrollingImages /> */}
      
       {/* <FeaturedGrid /> */}
-      <NetflixStyleGrid/>
-      {/* <Services /> */}
+      {/* <NetflixStyleGrid/>
+      <Services />
       <AdsCarousel/>
       <SocialEventsBooking/>
          <MCMerrysFAQ/>
          
-      <EmailSubscription />
+      <EmailSubscription /> */}
        {/* <ScrollingTextSection/> */}
     
    

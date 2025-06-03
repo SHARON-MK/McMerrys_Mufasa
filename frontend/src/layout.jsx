@@ -1,17 +1,16 @@
-// components/PublicLayout.js
 
-import Footer from "./components/Footer";
-import Header from "./components/Header";
+// import Footer from "./components/Footer";
+// import Header from "./components/Header";
 
 
-const PublicLayout = ({ children }) => {
-  return (
-    <>
-      <Header />
-      <main>{children}</main>
-      <Footer />
-    </>
-  );
-};
+// const PublicLayout = ({ children }) => {
+//   return (
+//     <>
+//       <Header />
+//       <main>{children}</main>
+//       <Footer />
+//     </>
+//   );
+// };
 
-export default PublicLayout;
+// export default PublicLayout;

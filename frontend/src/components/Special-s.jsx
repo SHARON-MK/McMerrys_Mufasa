@@ -8,7 +8,7 @@ export default function SocialEventsBooking() {
     <div className="flex items-center justify-center min-h-fit">
        
   
-      <div className="relative w-[750px] h-[600px] rounded-xl overflow-hidden">
+      <div className="relative w-[750px] lg:h-[600px]  rounded-xl overflow-hidden">
         {/* Background image with grayscale and opacity */}
         <div
           className="absolute inset-0 z-0"
