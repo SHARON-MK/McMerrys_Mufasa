@@ -50,9 +50,9 @@ const EventPage = () => {
   );
 
   return (
-    <div className="min-h-screen relative overflow-hidden" style={{ backgroundColor: '#fff700' }}>
+    <div className="min-h-screen relative" style={{ backgroundColor: '#fff700' }}>
       {/* Animated Background */}
-      <div className="fixed inset-0" style={{ backgroundColor: '#fff700' }}>
+      <div className="absolute inset-0 z-[-1]" style={{ backgroundColor: '#fff700' }}>
         {/* Floating Particles */}
         <div className="absolute inset-0">
           {[...Array(20)].map((_, i) => (
@@ -171,8 +171,8 @@ const EventPage = () => {
                       {event.title}
                     </h3>
                     
-                    <p className="text-yellow-100 text-sm mb-4 leading-relaxed line-clamp-2">
-                      {event.description}
+                    <p className="text-yellow-100 text-sm mb-4 leading-relaxed line-clamp-2 overflow-hidden text-ellipsis">
+                      {event.description?.length > 100 ? `${event.description.substring(0, 100)}...` : event.description}
                     </p>
                     
                     <div className="flex justify-between items-center">
@@ -289,7 +289,7 @@ const EventPage = () => {
         }
         
         ::-webkit-scrollbar-track {
-          background: #000;
+          background: #0000;
         }
         
         ::-webkit-scrollbar-thumb {
