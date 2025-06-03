@@ -1,4 +1,4 @@
-const express = require('express');
+
 const Event = require('../models/eventModel');
 const Category = require('../models/categoryModel');
 const cloudinary = require('../config/cloudinary');

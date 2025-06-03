@@ -7,4 +7,4 @@ router.post('/', bookingController.createBooking);
 router.get('/email/:email', bookingController.getBookingByEmail);
 router.get('/:id', bookingController.getBookingById);
 
-module.exports = router; 
+module.exports =router; 
