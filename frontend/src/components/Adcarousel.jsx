@@ -20,7 +20,7 @@ const AdsCarousel = () => {
   }, []);
 
   return (
-    <div className="relative z-20 w-full h-24 sm:h-32 md:h-40 mb-6 sm:mb-8">
+    <div className="relative z-20 w-full h-32 sm:h-48 md:h-64 mb-6 sm:mb-8">
       <div className="container mx-auto px-8 sm:px-6 lg:px-10 h-full">
         <div className="relative w-full h-full rounded-xl overflow-hidden mt-8">
           <AnimatePresence mode="wait">

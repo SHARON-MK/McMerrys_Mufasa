@@ -1,24 +1,44 @@
 import React, { useState } from 'react';
 import { ArrowRight, CheckCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
-import ScrollingTextSection from './ui/Scroller';
-
+import { PUBLIC_ENDPOINTS } from '../constants/api';
+import axios from 'axios';
 
 const Hero = () => {
   const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Email submitted:', email);
-    setIsSubmitted(true);
-    setEmail('');
-    
-    // Reset success message after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-    }, 3000);
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const isValidEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
   };
+
+  if (!email || !isValidEmail(email)) {
+    return alert('Please enter a valid email address');
+  }
+
+  try {
+    const response = await axios.post(`${PUBLIC_ENDPOINTS.EMAIL_SUBMISSION}`, { email });
+
+    if (response.status === 200) {
+      console.log('Email sent successfully');
+      setIsSubmitted(true);
+      setEmail('');
+
+      // Reset success message after 3 seconds
+      setTimeout(() => {
+        setIsSubmitted(false);
+      }, 3000);
+    }
+  } catch (error) {
+    console.error('Email submission failed:', error);
+    alert('Failed to send email. Please try again later.');
+  }
+};
+
 
   return (
     <section className="relative py-8 min-h-[95vh] overflow-hidden flex flex-col">

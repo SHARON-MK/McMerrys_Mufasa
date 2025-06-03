@@ -26,7 +26,8 @@ export const PUBLIC_ENDPOINTS = {
     CATEGORIES: `${API_BASE_URL}/categories`,
     CATEGORY_BY_ID: (id) => `${API_BASE_URL}/categories/${id}`,
     BOOKINGS: `${API_BASE_URL}/bookings`,
-};
+    EMAIL_SUBMISSION: `${API_BASE_URL}/user/send-mail`,
+    };
 
 // API Headers
 export const getAuthHeader = () => {
