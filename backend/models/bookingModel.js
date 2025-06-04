@@ -11,15 +11,15 @@ const bookingSchema = new mongoose.Schema({
   // Basic Information (Common for all forms)
   name: {
     type: String,
-    required: true
+
   },
   email: {
     type: String,
-    required: true
+
   },
   phone: {
     type: String,
-    required: true
+
   },
   whatsapp: String,
   alternativePhone: String,
@@ -28,24 +28,24 @@ const bookingSchema = new mongoose.Schema({
   // Event Details (Common for all forms)
   eventType: {
     type: String,
-    enum: ['birthday', 'corporate', 'social', 'school'],
-    required: true
+
+
   },
   eventDate: {
     type: Date,
-    required: true
+
   },
   eventTime: {
     type: String,
-    required: true
+
   },
   venue: {
     type: String,
-    required: true
+
   },
   guestCount: {
     type: Number,
-    required: true,
+
     min: 1
   },
 
@@ -57,10 +57,10 @@ const bookingSchema = new mongoose.Schema({
     type: String,
     enum: ['fun', 'elegant', 'adventure', 'relaxed']
   },
-  entertainment: [{
-    type: String,
-    enum: ['games', 'music', 'magic', 'facePainting']
-  }],
+  // entertainment: [{
+  //   type: String,
+  //   enum: ['games', 'music', 'magic', 'facePainting',]
+  // }],
   foodPreference: {
     type: String,
     enum: ['snacks', 'buffet', 'plated', 'custom']
@@ -69,7 +69,7 @@ const bookingSchema = new mongoose.Schema({
   // Corporate Event Specific Fields
   companyName: {
     type: String,
-    required: true
+
   },
   jobTitle: String,
   eventPurpose: String,
@@ -80,27 +80,18 @@ const bookingSchema = new mongoose.Schema({
   },
   duration: {
     type: String,
-    enum: ['half-day', 'full-day', 'multi-day', 'custom']
+    
   },
   equipment: [{
     type: String,
-    enum: [
-      'audio-visual-equipment',
-      'microphones',
-      'projectors-screens',
-      'live-streaming',
-      'photography',
-      'videography',
-      'lighting',
-      'sound-system'
-    ]
+
   }],
   catering: {
     type: String,
-    enum: ['none', 'coffee-breaks', 'light-refreshments', 'lunch', 'full-catering', 'custom']
+  
   },
   eventGoals: String,
-
+relationship:String,
   // Social Event Specific Fields
   occasion: {
     type: String,
@@ -118,35 +109,26 @@ const bookingSchema = new mongoose.Schema({
   },
   venuePreference: {
     type: String,
-    enum: ['our-venue', 'home', 'outdoor', 'banquet-hall', 'restaurant', 'community-center', 'other']
   },
   eventVibe: {
     type: String,
-    enum: ['casual', 'classy', 'fun', 'elegant', 'tropical']
+    // enum: ['casual', 'classy', 'fun', 'elegant', 'tropical']
   },
   eventTheme: String,
   entertainment: [{
     type: String,
-    enum: [
-      'dj-services',
-      'live-band',
-      'photographer',
-      'videographer',
-      'photo-booth',
-      'dancing',
-      'games-activities',
-      'kids-entertainment'
-    ]
+
   }],
+  specialAccommodations: String,
   decorations: {
     type: String,
-    enum: ['none', 'minimal', 'standard', 'elaborate', 'custom']
+    // enum: ['none', 'minimal', 'standard', 'elaborate', 'custom']
   },
 
   // School Event Specific Fields
   schoolName: {
     type: String,
-    required: true
+
   },
   role: {
     type: String,
@@ -182,11 +164,7 @@ const bookingSchema = new mongoose.Schema({
       'all-grades'
     ]
   }],
-  expectedAttendance: {
-    type: Number,
-    min: 1,
-    max: 2000
-  },
+
   subjectAreas: [{
     type: String,
     enum: [
@@ -207,20 +185,7 @@ const bookingSchema = new mongoose.Schema({
   learningOutcomes: String,
   equipment: [{
     type: String,
-    enum: [
-      'projector-screen',
-      'sound-system',
-      'microphones',
-      'computers-tablets',
-      'interactive-whiteboard',
-      'photography',
-      'video-recording',
-      'live-streaming',
-      'stage-platform',
-      'lighting',
-      'tables-chairs',
-      'science-equipment'
-    ]
+   
   }],
 
   // Additional Services (Common for all forms)
@@ -232,12 +197,15 @@ const bookingSchema = new mongoose.Schema({
   // Budget and Payment
   budgetRange: {
     type: String,
-    enum: ['under-5k', '5k-15k', '15k-30k', '30k-50k', 'over-50k', 'discuss']
+
   },
   totalPrice: {
     type: Number,
-    required: true
+
   },
+  ageGroups: {
+  type: [String],},
+
   paymentStatus: {
     type: String,
     enum: ['pending', 'paid', 'refunded'],
@@ -258,27 +226,7 @@ const bookingSchema = new mongoose.Schema({
   comments: String,
   referralSource: {
     type: String,
-    enum: [
-      // Corporate
-      'website',
-      'social-media',
-      'referral',
-      'linkedin',
-      'google',
-      'industry-event',
-      'partner',
-      // School
-      'school-administrator',
-      'teacher-colleague',
-      'educational-website',
-      'conference',
-      'social-media',
-      'referral',
-      'google-search',
-      'vendor-fair',
-      // Common
-      'other'
-    ]
+  
   },
 
   // Timestamps
@@ -302,18 +250,18 @@ bookingSchema.index({ createdAt: -1 });
 bookingSchema.index({ eventType: 1 });
 
 // Pre-save middleware to update the updatedAt timestamp
-bookingSchema.pre('save', function(next) {
+bookingSchema.pre('save', function (next) {
   this.updatedAt = new Date();
   next();
 });
 
 // Virtual for calculating booking age
-bookingSchema.virtual('bookingAge').get(function() {
+bookingSchema.virtual('bookingAge').get(function () {
   return Math.floor((Date.now() - this.createdAt) / (1000 * 60 * 60 * 24));
 });
 
 // Method to check if booking can be cancelled
-bookingSchema.methods.canBeCancelled = function() {
+bookingSchema.methods.canBeCancelled = function () {
   const eventDate = new Date(this.eventDate);
   const now = new Date();
   const hoursUntilEvent = (eventDate - now) / (1000 * 60 * 60);
@@ -321,7 +269,7 @@ bookingSchema.methods.canBeCancelled = function() {
 };
 
 // Method to get booking summary
-bookingSchema.methods.getSummary = function() {
+bookingSchema.methods.getSummary = function () {
   return {
     id: this._id,
     eventType: this.eventType,

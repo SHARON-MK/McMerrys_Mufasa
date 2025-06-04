@@ -9,7 +9,6 @@ dotenv.config();
 
 // ✅ Import Routes (Ensure these filenames exist exactly as written)
 const adminRoute =require("./routes/adminRoute");
-const bookingRoute= require("./routes/bookingRoute");
 const authRoute = require("./routes/authRoute");
 const userRoute= require("./routes/userRoute"); // ✅ Fixed: plural 'Routes'
 
@@ -50,7 +49,6 @@ app.get('/', (req, res) => {
 // 🚏 Routes
 app.use('/api/admin', adminRoute);
 app.use('/api/user', userRoute);
-app.use('/api/bookings', bookingRoute);
 app.use('/api/auth', authRoute);
 
 

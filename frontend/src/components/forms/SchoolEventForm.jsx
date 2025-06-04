@@ -129,8 +129,8 @@ const SchoolEventsBookingForm = ({ event, bookingData, handleInputChange, handle
         <label className="block text-sm font-medium mb-1">Expected Attendance</label>
         <input
           type="number"
-          name="expectedAttendance"
-          value={bookingData.expectedAttendance}
+          name="guestCount"
+          value={bookingData.guestCount}
           onChange={handleInputChange}
           required
           min="1"

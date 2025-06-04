@@ -3,7 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchEventById, createBooking, clearError, clearBookingSuccess } from '../store/slices/eventsSlice';
 import StandardBookingForm from './forms/StandardBookingForm';
-import ConcertBookingForm from './forms/ConcertBookingForm';
 import BirthdayPartyForm from './forms/BirthdayPartyForm';
 import SocialEventForm from './forms/SocialEventForm';
 import CorporateEventsBookingForm from './forms/CorporateEventsBookingForm';
@@ -19,31 +18,64 @@ const EventDetails = () => {
   const modalRef = useRef(null);
   
   const [bookingData, setBookingData] = useState({
+    // Common fields for all event types
     name: '',
     email: '',
     phone: '',
     numberOfTickets: 1,
-    // Additional fields for specific forms
-    experienceLevel: '',
-    participants: 1,
-    seatingPreference: '',
+    eventDate: '',
+    guestCount: '',
+    venuePreference: '',
+    budgetRange: '',
+    specialRequests: '',
+
+    // Corporate Event specific fields
+    companyName: '',
+    jobTitle: '',
+    duration: '',
+    catering: '',
+    equipment: [],
+    specialRequirements: '',
+    referralSource: '',
+    eventGoals: '',
+    comments: '',
+
+    // Birthday Event specific fields
     isBirthdayPerson: '',
     birthdayPersonName: '',
     age: '',
     favoriteColors: '',
     desiredVibe: '',
-    guestCount: '',
-    venuePreference: '',
     entertainment: [],
     foodPreference: '',
-    budgetRange: '',
-    occasion: '',
-    eventVibe: '',
-    features: [],
-    foodType: '',
-    additionalServices: []
+
+    // School Event specific fields
+    schoolName: '',
+    gradeLevel: '',
+    numberOfStudents: '',
+    eventType: '',
+    duration: '',
+    equipment: [],
+    specialRequirements: '',
+    dietaryRestrictions: '',
+    chaperoneCount: '',
+
+    // Social Event specific fields
+    // occasion: '',
+    // eventVibe: '',
+    cateringStyle: '',
+    decorations: '',
+    entertainment: [],
+    dietaryRequirements: '',
+    ageGroups: [],
+    specialAccommodations: '',
+    referralSource: ''
   });
 
+  console.log(bookingData);
+  
+ 
+  
   useEffect(() => {
     dispatch(fetchEventById(id));
     return () => {
@@ -60,6 +92,7 @@ const EventDetails = () => {
     const { name, value, type, checked } = e.target;
     
     if (type === 'checkbox') {
+      // Handle checkbox inputs (for arrays like equipment, entertainment, ageGroups)
       const currentValues = bookingData[name] || [];
       if (checked) {
         setBookingData(prev => ({
@@ -72,7 +105,26 @@ const EventDetails = () => {
           [name]: currentValues.filter(v => v !== value)
         }));
       }
+    } else if (type === 'date') {
+      // Handle date inputs
+      setBookingData(prev => ({
+        ...prev,
+        [name]: value // Store the date in YYYY-MM-DD format
+      }));
+    } else if (type === 'number') {
+      // Handle number inputs
+      setBookingData(prev => ({
+        ...prev,
+        [name]: value === '' ? '' : Number(value)
+      }));
+    } else if (type === 'textarea') {
+      // Handle textarea inputs
+      setBookingData(prev => ({
+        ...prev,
+        [name]: value
+      }));
     } else {
+      // Handle all other inputs (text, email, tel, select)
       setBookingData(prev => ({
         ...prev,
         [name]: value
@@ -82,6 +134,65 @@ const EventDetails = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // Get the event category
+    const category = event.category?.name?.toLowerCase();
+    
+    // Common required fields for all forms
+    const commonRequiredFields = {
+      name: 'Name',
+      email: 'Email',
+      phone: 'Phone Number',
+      eventDate: 'Event Date',
+      guestCount: 'Guest Count',
+      venuePreference: 'Venue Preference'
+    };
+
+    // Category-specific required fields
+    const categoryRequiredFields = {
+      'corporate events': {
+        companyName: 'Company Name',
+        jobTitle: 'Job Title',
+        duration: 'Event Duration'
+      },
+      'birthday events': {
+        birthdayPersonName: 'Birthday Person Name',
+        age: 'Age',
+        desiredVibe: 'Desired Vibe'
+      },
+      'school events': {
+        schoolName: 'School Name',
+        gradeLevel: 'Grade Level',
+        numberOfStudents: 'Number of Students',
+        eventType: 'Event Type'
+      },
+      'social events': {
+        // occasion: 'Occasion',
+        // eventVibe: 'Event Vibe',
+        cateringStyle: 'Catering Style'
+      }
+    };
+
+    // Check common required fields
+    const missingCommonFields = Object.entries(commonRequiredFields)
+      .filter(([field]) => !bookingData[field])
+      .map(([_, label]) => label);
+
+    // Check category-specific required fields
+    const missingCategoryFields = Object.entries(categoryRequiredFields[category] || {})
+      .filter(([field]) => !bookingData[field])
+      .map(([_, label]) => label);
+
+    // Combine all missing fields
+    const allMissingFields = [...missingCommonFields, ...missingCategoryFields];
+
+    if (allMissingFields.length > 0) {
+      // Show error message with missing fields
+      alert(`Please fill in all required fields:\n${allMissingFields.join('\n')}`);
+      return;
+    }
+
+    // If all required fields are filled, proceed with submission
     dispatch(createBooking({ eventId: id, bookingData }));
   };
 
@@ -90,28 +201,59 @@ const EventDetails = () => {
       if (window.confirm('Are you sure you want to close? Your form data will be lost.')) {
         setShowBookingForm(false);
         setBookingData({
+          // Common fields
           name: '',
           email: '',
           phone: '',
           numberOfTickets: 1,
-          experienceLevel: '',
-          participants: 1,
-          seatingPreference: '',
+          eventDate: '',
+          guestCount: '',
+          venuePreference: '',
+          budgetRange: '',
+          specialRequests: '',
+
+          // Corporate Event fields
+          companyName: '',
+          jobTitle: '',
+         
+          duration: '',
+          catering: '',
+          equipment: [],
+          specialRequirements: '',
+          referralSource: '',
+          eventGoals: '',
+          comments: '',
+
+          // Birthday Event fields
           isBirthdayPerson: '',
           birthdayPersonName: '',
           age: '',
           favoriteColors: '',
           desiredVibe: '',
-          guestCount: '',
-          venuePreference: '',
           entertainment: [],
           foodPreference: '',
-          budgetRange: '',
+
+          // School Event fields
+          schoolName: '',
+          gradeLevel: '',
+          numberOfStudents: '',
+          eventType: '',
+          duration: '',
+          equipment: [],
+          specialRequirements: '',
+          dietaryRestrictions: '',
+          chaperoneCount: '',
+
+          // Social Event fields
           occasion: '',
           eventVibe: '',
-          features: [],
-          foodType: '',
-          additionalServices: []
+          cateringStyle: '',
+          decorations: '',
+          entertainment: [],
+          dietaryRequirements: '',
+          ageGroups: [],
+          specialAccommodations: '',
+          referralSource: ''
         });
       }
     } else {
@@ -142,7 +284,7 @@ const EventDetails = () => {
     if (!event) return null;
   
     const category = event.category?.name?.toLowerCase();
-    console.log(category,"category");
+    
     
     switch (category) {
       case 'corporate events':

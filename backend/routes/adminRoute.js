@@ -24,10 +24,10 @@ router.put('/events/:id', isAdmin,upload.single('image'), adminController.update
 router.delete('/events/:id', isAdmin, adminController.deleteEvent);
 router.patch('/events/:id/toggle', isAdmin, adminController.toggleEventStatus);
 
-// Booking management routes
-router.get('/bookings', isAdmin, bookingController.getAllBookings);
-router.get('/bookings/:id', isAdmin, bookingController.getBookingById);
-router.patch('/bookings/:id/status', isAdmin, bookingController.updateBookingStatus);
-router.patch('/bookings/:id/payment', isAdmin, bookingController.updatePaymentStatus);
+// // Booking management routes
+// router.get('/bookings', isAdmin, bookingController.getAllBookings);
+// router.get('/bookings/:id', isAdmin, bookingController.getBookingById);
+// router.patch('/bookings/:id/status', isAdmin, bookingController.updateBookingStatus);
+// router.patch('/bookings/:id/payment', isAdmin, bookingController.updatePaymentStatus);
 
 module.exports = router; 

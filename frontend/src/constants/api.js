@@ -25,7 +25,7 @@ export const PUBLIC_ENDPOINTS = {
     EVENT_BY_ID: (id) => `${API_BASE_URL}/user/events/${id}`,
     CATEGORIES: `${API_BASE_URL}/categories`,
     CATEGORY_BY_ID: (id) => `${API_BASE_URL}/categories/${id}`,
-    BOOKINGS: `${API_BASE_URL}/bookings`,
+    BOOKING: (id)=>`${API_BASE_URL}/user/create-booking/${id}`,
     EMAIL_SUBMISSION: `${API_BASE_URL}/user/send-mail`,
     };
 

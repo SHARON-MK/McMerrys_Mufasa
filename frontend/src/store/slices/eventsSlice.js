@@ -78,8 +78,10 @@ export const fetchEventById = createAsyncThunk(
 export const createBooking = createAsyncThunk(
     'events/createBooking',
     async ({ eventId, bookingData }, { rejectWithValue }) => {
+        console.log('Booking data:', bookingData);
+        
         try {
-            const response = await axiosInstance.post(`${PUBLIC_ENDPOINTS}/events/${eventId}/book`, bookingData);
+            const response = await axios.post(`${PUBLIC_ENDPOINTS.BOOKING(eventId)}`, bookingData);
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || 'Failed to create booking');

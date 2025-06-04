@@ -5,6 +5,7 @@ const Booking = require('../models/bookingModel');
 dotenv.config();
 const sendEmails = require('../utils/sendEmail');
 
+
 const getEvents = async (req, res) => {
     try {
         const events = await Event.find().sort({ date: 1 }).populate('category', 'name description').exec();;
@@ -28,44 +29,144 @@ const getEventById = async (req, res) => {
     }
 };
 
+
+// Create a new booking
 const createBooking = async (req, res) => {
+    console.log('Creating booking with data:', req.body);
     try {
-        const { eventId } = req.params;
-        const { name, email, phone, numberOfTickets } = req.body;
+        const bookingData = req.body;
+        const id = req.params.id;
 
-        const event = await Event.findById(eventId);
+        if (!id || !bookingData) {
+            return res.status(400).json({
+                success: false,
+                message: 'Event ID and booking data are required'
+            });
+        }
+
+        // Validate event exists
+        const event = await Event.findById({_id: id}).populate('category', 'name description').exec();
+        console.log('Event found:', event);
+        
         if (!event) {
-            return res.status(404).json({ message: 'Event not found' });
+            return res.status(404).json({
+                success: false,
+                message: 'Event not found'
+            });
         }
 
-        if (!event.isActive) {
-            return res.status(400).json({ message: 'This event is not available for booking' });
+        // Prepare booking data based on event category
+        const category = event.category.name.toLowerCase();
+        let bookingPayload = {
+            event: event._id,
+            eventType: category,
+            // Common fields
+            name: bookingData.name || "",
+            email: bookingData.email || "",
+            phone: bookingData.phone || "",
+            eventDate: bookingData.eventDate || "",
+            guestCount: bookingData.guestCount || 0,
+            venuePreference: bookingData.venuePreference || "",
+            budgetRange: bookingData.budgetRange || "",
+            specialRequests: bookingData.specialRequests || "",
+            status: 'pending', // Initial status
+            createdAt: new Date()
+        };
+
+        // Add category-specific fields
+        switch (category) {
+            case 'corporate events':
+                bookingPayload = {
+                    ...bookingPayload,
+                    companyName: bookingData.companyName || "",
+                    jobTitle: bookingData.jobTitle || "",
+                    duration: bookingData.duration || "",
+                    catering: bookingData.catering || "",
+                    equipment: bookingData.equipment || [],
+                    specialRequirements: bookingData.specialRequirements || "",
+                    referralSource: bookingData.referralSource || "",
+                    eventGoals: bookingData.eventGoals || "",
+                    comments: bookingData.comments || ""
+                };
+                break;
+
+            case 'birthday events':
+                bookingPayload = {
+                    ...bookingPayload,
+                    isBirthdayPerson: bookingData.isBirthdayPerson || "",
+                    birthdayPersonName: bookingData.birthdayPersonName || "",
+                    age: bookingData.age || 0,
+                    favoriteColors: bookingData.favoriteColors || "",
+                    desiredVibe: bookingData.desiredVibe || "",
+                    entertainment: bookingData.entertainment || [],
+                    foodPreference: bookingData.foodPreference || "",
+                    specialRequirements: bookingData.specialRequests || "",
+                };
+                break;
+
+            case 'school events':
+                bookingPayload = {
+                    ...bookingPayload,
+                    schoolName: bookingData.schoolName || "",
+                    gradeLevel: bookingData.gradeLevel || "",
+                    numberOfStudents: bookingData.numberOfStudents || 0,
+                    eventType: bookingData.eventType || "",
+                    duration: bookingData.duration || "",
+                    equipment: bookingData.equipment || [],
+                    specialRequirements: bookingData.specialRequirements || "",
+                    dietaryRestrictions: bookingData.dietaryRestrictions || "",
+                    chaperoneCount: bookingData.chaperoneCount || 0
+                };
+                break;
+
+            case 'social events':
+                bookingPayload = {
+                    ...bookingPayload,
+                    // occasion: bookingData.occasion || "",
+                    // eventVibe: bookingData.eventVibe || "",
+                    catering: bookingData.cateringStyle || "",
+                    decorations: bookingData.decorations || "",
+                    entertainment: bookingData.entertainment || [],
+                    specialRequirements: bookingData.dietaryRequirements || "",
+                    ageGroups: bookingData.ageGroups || [],
+                    specialAccommodations: bookingData.specialAccommodations || "",
+                    referralSource: bookingData.referralSource || "",
+                    eventTheme: bookingData.eventTheme || "",
+                    evetTime: bookingData.eventTime || "",
+                    duration: bookingData.eventTime || "",
+                    realationship: bookingData.relationship || ""
+                  
+                  
+                };
+                break;
         }
 
-        const booking = new Booking({
-            event: eventId,
-            name,
-            email,
-            phone,
-            numberOfTickets,
-            totalAmount: event.price * numberOfTickets,
-            status: 'pending'
-        });
+        // Create the booking
+        const booking = await Booking.create(bookingPayload);
 
-        await booking.save();
-
-        // TODO: Send confirmation email to user
-        // TODO: Update event capacity if needed
-
+        // Send success response
         res.status(201).json({
+            success: true,
             message: 'Booking created successfully',
-            booking
+            data: {
+                booking,
+                eventDetails: {
+                    title: event.title,
+                    category: event.category.name,
+                    image: event.image
+                }
+            }
         });
     } catch (error) {
-        console.error('Error creating booking:', error);
-        res.status(500).json({ message: 'Internal server error' });
+        console.error('Booking creation error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error creating booking',
+            error: error.message
+        });
     }
 };
+
 
 
 const sendEmail = async (req, res) => {
@@ -82,7 +183,7 @@ const sendEmail = async (req, res) => {
       <h2 style="color: #d63384;">Welcome to <span style="color:#4CAF50">Mc Merrys</span> </h2>
       <p>Hi there 👋,</p>
       <p>Thanks for signing up with <strong>${email}</strong>.</p>
-      <p>We’re thrilled to have you! Get ready for delicious updates and exclusive treats!</p>
+      <p>We're thrilled to have you! Get ready for delicious updates and exclusive treats!</p>
       <br/>
       <p style="font-size: 14px; color: #555;">– The Mc Merrys Team</p>
     </div>

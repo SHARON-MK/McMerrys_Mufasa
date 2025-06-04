@@ -113,6 +113,18 @@ const BirthdayPartyForm = ({ event, bookingData, handleInputChange, handleSubmit
     <div className="space-y-4">
       <h3 className="text-lg font-semibold text-[#fff700]">Event Details</h3>
       <div>
+        <label className="block text-sm font-medium mb-1">Event Date</label>
+        <input
+          type="date"
+          name="eventDate"
+          value={bookingData.eventDate}
+          onChange={handleInputChange}
+          required
+          min={new Date().toISOString().split('T')[0]}
+          className="w-full px-3 py-2 bg-black/30 border border-gray-600 rounded-md focus:outline-none focus:border-[#fff700]"
+        />
+      </div>
+      <div>
         <label className="block text-sm font-medium mb-1">Expected Number of Guests</label>
         <input
           type="number"

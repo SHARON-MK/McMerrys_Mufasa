@@ -6,156 +6,124 @@ const createBooking = async (req, res) => {
     try {
         const {
             eventId,
-            bookingType,
-            contactInfo,
-            eventDetails,
-            birthdayDetails,
-            socialDetails,
-            notes
+            bookingData
         } = req.body;
 
-        // Validate if event exists
+        // Validate event exists
         const event = await Event.findById(eventId);
         if (!event) {
-            return res.status(404).json({ message: 'Event not found' });
+            return res.status(404).json({
+                success: false,
+                message: 'Event not found'
+            });
         }
 
-        // Create booking object based on booking type
-        const bookingData = {
+        // Prepare booking data based on event category
+        const category = event.category.name.toLowerCase();
+        let bookingPayload = {
             event: eventId,
-            bookingType,
-            contactInfo,
-            eventDetails,
-            notes
+            eventType: category,
+            // Common fields
+            name: bookingData.name,
+            email: bookingData.email,
+            phone: bookingData.phone,
+            eventDate: bookingData.eventDate,
+            guestCount: bookingData.guestCount,
+            venuePreference: bookingData.venuePreference,
+            budgetRange: bookingData.budgetRange,
+            specialRequests: bookingData.specialRequests,
+            status: 'pending', // Initial status
+            createdAt: new Date()
         };
 
-        // Add type-specific details
-        if (bookingType === 'birthday' && birthdayDetails) {
-            bookingData.birthdayDetails = birthdayDetails;
-        } else if (bookingType === 'social' && socialDetails) {
-            bookingData.socialDetails = socialDetails;
+        // Add category-specific fields
+        switch (category) {
+            case 'corporate events':
+                bookingPayload = {
+                    ...bookingPayload,
+                    companyName: bookingData.companyName,
+                    jobTitle: bookingData.jobTitle,
+                    attendees: bookingData.attendees,
+                    duration: bookingData.duration,
+                    catering: bookingData.catering,
+                    equipment: bookingData.equipment || [],
+                    specialRequirements: bookingData.specialRequirements,
+                    referralSource: bookingData.referralSource,
+                    eventGoals: bookingData.eventGoals,
+                    comments: bookingData.comments
+                };
+                break;
+
+            case 'birthday events':
+                bookingPayload = {
+                    ...bookingPayload,
+                    isBirthdayPerson: bookingData.isBirthdayPerson,
+                    birthdayPersonName: bookingData.birthdayPersonName,
+                    age: bookingData.age,
+                    favoriteColors: bookingData.favoriteColors,
+                    desiredVibe: bookingData.desiredVibe,
+                    entertainment: bookingData.entertainment || [],
+                    foodPreference: bookingData.foodPreference
+                };
+                break;
+
+            case 'school events':
+                bookingPayload = {
+                    ...bookingPayload,
+                    schoolName: bookingData.schoolName,
+                    gradeLevel: bookingData.gradeLevel,
+                    numberOfStudents: bookingData.numberOfStudents,
+                    eventType: bookingData.eventType,
+                    duration: bookingData.duration,
+                    equipment: bookingData.equipment || [],
+                    specialRequirements: bookingData.specialRequirements,
+                    dietaryRestrictions: bookingData.dietaryRestrictions,
+                    chaperoneCount: bookingData.chaperoneCount
+                };
+                break;
+
+            case 'social events':
+                bookingPayload = {
+                    ...bookingPayload,
+                    occasion: bookingData.occasion,
+                    eventVibe: bookingData.eventVibe,
+                    cateringStyle: bookingData.cateringStyle,
+                    decorations: bookingData.decorations,
+                    entertainment: bookingData.entertainment || [],
+                    dietaryRequirements: bookingData.dietaryRequirements,
+                    ageGroups: bookingData.ageGroups || [],
+                    specialAccommodations: bookingData.specialAccommodations,
+                    referralSource: bookingData.referralSource
+                };
+                break;
         }
 
-        // Calculate total amount based on event price and guest count
-        const guestCount = eventDetails.guestCount || 0;
-        const totalAmount = guestCount <= 10 ? 
-            event.price.starting * guestCount : 
-            event.price.premium * guestCount;
+        // Create the booking
+        const booking = await Booking.create(bookingPayload);
 
-        bookingData.totalAmount = totalAmount;
-
-        const booking = new Booking(bookingData);
-        await booking.save();
-
+        // Send success response
         res.status(201).json({
+            success: true,
             message: 'Booking created successfully',
-            booking,
-            eventDetails: {
-                title: event.title,
-                description: event.description,
-                image: event.image
+            data: {
+                booking,
+                eventDetails: {
+                    title: event.title,
+                    category: event.category.name,
+                    image: event.image
+                }
             }
         });
     } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
-
-// Get booking by email
-const getBookingByEmail = async (req, res) => {
-    try {
-        const { email } = req.params;
-        const bookings = await Booking.find({ 'contactInfo.email': email })
-            .populate('event', 'title description image')
-            .sort({ createdAt: -1 });
-
-        if (!bookings.length) {
-            return res.status(404).json({ message: 'No bookings found for this email' });
-        }
-
-        res.status(200).json(bookings);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
-
-// Get booking by ID
-const getBookingById = async (req, res) => {
-    try {
-        const booking = await Booking.findById(req.params.id)
-            .populate('event', 'title description image');
-
-        if (!booking) {
-            return res.status(404).json({ message: 'Booking not found' });
-        }
-
-        res.status(200).json(booking);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
-
-// Update booking status
-const updateBookingStatus = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const { status, adminNotes } = req.body;
-
-        const booking = await Booking.findById(id);
-        if (!booking) {
-            return res.status(404).json({ message: 'Booking not found' });
-        }
-
-        if (status) {
-            booking.status = status;
-        }
-        if (adminNotes) {
-            booking.adminNotes = adminNotes;
-        }
-
-        await booking.save();
-        res.status(200).json(booking);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
-
-// Update payment status
-const updatePaymentStatus = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const { paymentStatus } = req.body;
-
-        const booking = await Booking.findById(id);
-        if (!booking) {
-            return res.status(404).json({ message: 'Booking not found' });
-        }
-
-        booking.paymentStatus = paymentStatus;
-        await booking.save();
-        res.status(200).json(booking);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
-
-// Get all bookings (for admin)
-const getAllBookings = async (req, res) => {
-    try {
-        const bookings = await Booking.find()
-            .populate('event', 'title description image')
-            .sort({ createdAt: -1 });
-        res.status(200).json(bookings);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error('Booking creation error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error creating booking',
+            error: error.message
+        });
     }
 };
 
 module.exports = {
-    createBooking,
-    getBookingByEmail,
-    getBookingById,
-    updateBookingStatus,
-    updatePaymentStatus,
-    getAllBookings
+    createBooking
 }; 
