@@ -50,15 +50,15 @@ const EventPage = () => {
   );
 
   return (
-    <div className="min-h-screen relative" style={{ backgroundColor: '#fff700' }}>
+    <div className="min-h-screen relative overflow-hidden" style={{ backgroundColor: '#fff700' }}>
       {/* Animated Background */}
-      <div className="absolute inset-0 z-[-1]" style={{ backgroundColor: '#fff700' }}>
+      <div className="fixed inset-0 z-[-1]">
         {/* Floating Particles */}
         <div className="absolute inset-0">
-          {[...Array(20)].map((_, i) => (
+          {[...Array(30)].map((_, i) => (
             <div
               key={i}
-              className="absolute w-3 h-3 bg-black rounded-full opacity-20 animate-float"
+              className="absolute w-4 h-4 bg-black rounded-full opacity-30 animate-float"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
@@ -70,16 +70,17 @@ const EventPage = () => {
         </div>
         
         {/* Hexagonal Pattern Overlay */}
-        <div className="absolute inset-0 opacity-10" 
+        <div className="absolute inset-0 opacity-20" 
              style={{
                backgroundImage: `radial-gradient(circle at 1px 1px, black 1px, transparent 0)`,
-               backgroundSize: '25px 25px'
+               backgroundSize: '30px 30px'
              }}>
         </div>
 
         {/* Large geometric shapes */}
-        <div className="absolute top-20 right-20 w-32 h-32 bg-black opacity-5 rounded-full animate-pulse"></div>
-        <div className="absolute bottom-40 left-10 w-24 h-24 bg-black opacity-5 transform rotate-45 animate-bounce"></div>
+        <div className="absolute top-20 right-20 w-40 h-40 bg-black opacity-10 rounded-full animate-pulse"></div>
+        <div className="absolute bottom-40 left-10 w-32 h-32 bg-black opacity-10 transform rotate-45 animate-bounce"></div>
+        <div className="absolute top-1/2 left-1/2 w-48 h-48 bg-black opacity-10 rounded-full animate-ping"></div>
       </div>
 
       {/* Main Content */}
@@ -96,7 +97,7 @@ const EventPage = () => {
           
           <div className="bg-black/90 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border-4 border-black">
             <h1 className="text-4xl sm:text-5xl font-bold text-yellow-400 mb-3 bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent">
-              {categoryParam} Events
+              {categoryParam} 
             </h1>
             <p className="text-lg text-yellow-100 mb-6">
               Curated {categoryParam?.toLowerCase()} event experiences tailored for you.
@@ -268,11 +269,13 @@ const EventPage = () => {
       <style jsx>{`
         @keyframes float {
           0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(10deg); }
+          25% { transform: translateY(-20px) rotate(5deg); }
+          50% { transform: translateY(0px) rotate(0deg); }
+          75% { transform: translateY(20px) rotate(-5deg); }
         }
         
         .animate-float {
-          animation: float 6s ease-in-out infinite;
+          animation: float 8s ease-in-out infinite;
         }
 
         /* Text truncation */

@@ -4,24 +4,40 @@ import logo from '../../public/logo/logo.png';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 0) {
+      const currentScrollY = window.scrollY;
+      
+      // Update scrolled state for background
+      if (currentScrollY > 0) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
       }
+
+      // Handle header visibility
+      if (currentScrollY > lastScrollY) {
+        // Scrolling down
+        setIsVisible(false);
+      } else {
+        // Scrolling up
+        setIsVisible(true);
+      }
+
+      setLastScrollY(currentScrollY);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [lastScrollY]);
 
   return (
-    <header className={`fixed top-0 left-0  right-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'shadow-lg bg-black bg-opacity-50 text-white' : 'text-black'
-    }`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-60 transition-all duration-300 ${
+      isScrolled ? 'shadow-lg bg-black bg-opacity-70 text-white' : 'text-black'
+    } ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
       <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
         <Link to="/">
           <div className="flex items-center justify-between h-12 sm:h-14">

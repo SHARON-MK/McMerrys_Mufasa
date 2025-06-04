@@ -3,10 +3,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchEventById, createBooking, clearError, clearBookingSuccess } from '../store/slices/eventsSlice';
 import StandardBookingForm from './forms/StandardBookingForm';
-import WorkshopBookingForm from './forms/WorkshopBookingForm';
 import ConcertBookingForm from './forms/ConcertBookingForm';
 import BirthdayPartyForm from './forms/BirthdayPartyForm';
 import SocialEventForm from './forms/SocialEventForm';
+import CorporateEventsBookingForm from './forms/CorporateEventsBookingForm';
+import SchoolEventsBookingForm from './forms/SchoolEventForm';
 
 const EventDetails = () => {
   const { id } = useParams();
@@ -146,16 +147,16 @@ const EventDetails = () => {
     switch (category) {
       case 'corporate events':
         return (
-          <WorkshopBookingForm
+          <CorporateEventsBookingForm
             event={event}
             bookingData={bookingData}
             handleInputChange={handleInputChange}
             handleSubmit={handleSubmit}
           />
         );
-      case 'concert':
+      case 'social events':
         return (
-          <ConcertBookingForm
+          <SocialEventForm
             event={event}
             bookingData={bookingData}
             handleInputChange={handleInputChange}
@@ -171,9 +172,9 @@ const EventDetails = () => {
             handleSubmit={handleSubmit}
           />
         );
-      case 'social':
+      case 'school events':
         return (
-          <SocialEventForm
+          <SchoolEventsBookingForm
             event={event}
             bookingData={bookingData}
             handleInputChange={handleInputChange}
