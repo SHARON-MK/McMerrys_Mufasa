@@ -77,7 +77,7 @@ const MCMerrysFAQ = () => {
             Frequently Asked Questions
           </h2>
           <p className="text-xl  text-black/80 mb-6">
-            Everything you need to know about MC Merrys
+            Everything you need to know about Mc Merrys
           </p>
           <button
             onClick={toggleAll}
