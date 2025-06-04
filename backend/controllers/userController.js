@@ -32,7 +32,7 @@ const getEventById = async (req, res) => {
 
 // Create a new booking
 const createBooking = async (req, res) => {
-    console.log('Creating booking with data:', req.body);
+  
     try {
         const bookingData = req.body;
         const id = req.params.id;
@@ -46,7 +46,7 @@ const createBooking = async (req, res) => {
 
         // Validate event exists
         const event = await Event.findById({_id: id}).populate('category', 'name description').exec();
-        console.log('Event found:', event);
+      
         
         if (!event) {
             return res.status(404).json({
@@ -110,12 +110,18 @@ const createBooking = async (req, res) => {
                     schoolName: bookingData.schoolName || "",
                     gradeLevel: bookingData.gradeLevel || "",
                     numberOfStudents: bookingData.numberOfStudents || 0,
-                    eventType: bookingData.eventType || "",
+                    // eventType: bookingData.eventType || "",
                     duration: bookingData.duration || "",
                     equipment: bookingData.equipment || [],
                     specialRequirements: bookingData.specialRequirements || "",
                     dietaryRestrictions: bookingData.dietaryRestrictions || "",
-                    chaperoneCount: bookingData.chaperoneCount || 0
+                    chaperoneCount: bookingData.chaperoneCount || 0,
+                    subjectarea: bookingData.subjectArea || "",
+                     eventGoals: bookingData.educationalGoal || "",
+                     role: bookingData.role || "",
+                     learningOutcomes: bookingData.learningOutcomes || "",
+                     catering: bookingData.refreshments || "",
+                     permission: bookingData.parentPermission==="yes"? true : false,
                 };
                 break;
 
@@ -135,6 +141,7 @@ const createBooking = async (req, res) => {
                     evetTime: bookingData.eventTime || "",
                     duration: bookingData.eventTime || "",
                     realationship: bookingData.relationship || ""
+
                   
                   
                 };

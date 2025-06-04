@@ -75,7 +75,7 @@ const SchoolEventsBookingForm = ({ event, bookingData, handleInputChange, handle
     {/* School Event Details */}
     <div className="space-y-4">
       <h3 className="text-lg font-semibold text-[#fff700]">School Event Details</h3>
-      <div>
+      {/* <div>
         <label className="block text-sm font-medium mb-1">Event Type</label>
         <select
           name="eventType"
@@ -102,7 +102,7 @@ const SchoolEventsBookingForm = ({ event, bookingData, handleInputChange, handle
           <option value="competition">Academic Competition</option>
           <option value="other">Other</option>
         </select>
-      </div>
+      </div> */}
       <div>
         <label className="block text-sm font-medium mb-1">Target Grade Level(s)</label>
         <div className="grid grid-cols-3 gap-2 mt-2">
@@ -170,8 +170,8 @@ const SchoolEventsBookingForm = ({ event, bookingData, handleInputChange, handle
       <div>
         <label className="block text-sm font-medium mb-1">Venue Location</label>
         <select
-          name="venueLocation"
-          value={bookingData.venueLocation}
+          name="venuePreference"
+          value={bookingData.venuePreference}
           onChange={handleInputChange}
           className="w-full px-3 py-2 bg-black/30 border border-gray-600 rounded-md focus:outline-none focus:border-[#fff700]"
         >

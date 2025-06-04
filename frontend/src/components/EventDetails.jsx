@@ -52,9 +52,9 @@ const EventDetails = () => {
     // School Event specific fields
     schoolName: '',
     gradeLevel: '',
-    numberOfStudents: '',
-    eventType: '',
-    duration: '',
+    // numberOfStudents: '',
+    // eventType: '',
+    // duration: '',
     equipment: [],
     specialRequirements: '',
     dietaryRestrictions: '',
@@ -163,8 +163,8 @@ const EventDetails = () => {
       'school events': {
         schoolName: 'School Name',
         gradeLevel: 'Grade Level',
-        numberOfStudents: 'Number of Students',
-        eventType: 'Event Type'
+        // numberOfStudents: 'Number of Students',
+        // eventType: 'Event Type'
       },
       'social events': {
         // occasion: 'Occasion',

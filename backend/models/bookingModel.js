@@ -91,7 +91,8 @@ const bookingSchema = new mongoose.Schema({
   
   },
   eventGoals: String,
-relationship:String,
+  relationship:String,
+  
   // Social Event Specific Fields
   occasion: {
     type: String,
@@ -132,17 +133,7 @@ relationship:String,
   },
   role: {
     type: String,
-    enum: [
-      'teacher',
-      'principal',
-      'administrator',
-      'counselor',
-      'parent',
-      'student',
-      'pta-member',
-      'coordinator',
-      'other'
-    ]
+  
   },
   gradeLevel: [{
     type: String,
@@ -183,6 +174,7 @@ relationship:String,
     ]
   }],
   learningOutcomes: String,
+  permission:{type:Boolean},
   equipment: [{
     type: String,
    
