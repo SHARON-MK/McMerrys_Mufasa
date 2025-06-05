@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const adminController = require('../controllers/adminController');
-const bookingController = require('../controllers/bookingController');
 const { isAdmin } = require('../middleWare/authMiddleware');
 const upload = require('../middleWare/upload');
 
@@ -24,10 +23,20 @@ router.put('/events/:id', isAdmin,upload.single('image'), adminController.update
 router.delete('/events/:id', isAdmin, adminController.deleteEvent);
 router.patch('/events/:id/toggle', isAdmin, adminController.toggleEventStatus);
 
-// // Booking management routes
-// router.get('/bookings', isAdmin, bookingController.getAllBookings);
-// router.get('/bookings/:id', isAdmin, bookingController.getBookingById);
-// router.patch('/bookings/:id/status', isAdmin, bookingController.updateBookingStatus);
-// router.patch('/bookings/:id/payment', isAdmin, bookingController.updatePaymentStatus);
+// Booking management routes
+router.get('/bookings', isAdmin, adminController.getAllBookings);
+router.get('/bookings/:id', isAdmin, adminController.getBookingById);
+router.patch('/bookings/:id/confirm', isAdmin, adminController.updateBookingStatus);
+router.delete('/bookings/:id', isAdmin, adminController.deleteBookingById);
+
+router.get('/email-data', isAdmin, adminController.fetchEmails);
+// router.patch('/bookings/:id/payment', isAdmin, adminController.updatePaymentStatus);
+
+router.post('/create-ad',isAdmin,upload.single('image'),adminController.createAdvertisement)
+router.get("/advertisements",isAdmin,adminController.getadvertisements)
+router.delete("/advertisements/:id",isAdmin,adminController.deleteAdvertisements)
+router.put("/advertisements/:id",isAdmin,upload.single('image'),adminController.updateAdvertisements)
+
+
 
 module.exports = router; 

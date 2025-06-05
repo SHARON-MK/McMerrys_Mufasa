@@ -1,8 +1,8 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchEvents, createEvent, updateEvent, deleteEvent, clearError } from '../../store/slices/eventsSlice';
 import { fetchCategories } from '../../store/slices/categoriesSlice';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const LoadingSpinner = () => (
     <div className="flex justify-center items-center min-h-[400px]">
@@ -163,6 +163,8 @@ const Events = () => {
     const [selectedEventForView, setSelectedEventForView] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [categoryFilter, setCategoryFilter] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -322,6 +324,15 @@ const Events = () => {
             (event.category === categoryFilter);
         return matchesSearch && matchesCategory;
     });
+
+    // Pagination logic
+    const totalPages = Math.ceil(filteredEvents.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const paginatedEvents = filteredEvents.slice(startIndex, startIndex + itemsPerPage);
+
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+    };
 
     if (loading) return <LoadingSpinner />;
 
@@ -557,7 +568,7 @@ const Events = () => {
                         </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                        {filteredEvents.map((event) => (
+                        {paginatedEvents.map((event) => (
                             <tr key={event._id}>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     <img
@@ -613,6 +624,70 @@ const Events = () => {
                 {filteredEvents.length === 0 && (
                     <div className="text-center py-8 text-gray-500">
                         No events found matching your search criteria
+                    </div>
+                )}
+
+                {/* Pagination */}
+                {filteredEvents.length > 0 && (
+                    <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+                        <div className="flex-1 flex justify-between sm:hidden">
+                            <button
+                                onClick={() => handlePageChange(currentPage - 1)}
+                                disabled={currentPage === 1}
+                                className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+                            >
+                                Previous
+                            </button>
+                            <button
+                                onClick={() => handlePageChange(currentPage + 1)}
+                                disabled={currentPage === totalPages}
+                                className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+                            >
+                                Next
+                            </button>
+                        </div>
+                        <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                            <div>
+                                <p className="text-sm text-gray-700">
+                                    Showing <span className="font-medium">{startIndex + 1}</span> to{' '}
+                                    <span className="font-medium">
+                                        {Math.min(startIndex + itemsPerPage, filteredEvents.length)}
+                                    </span>{' '}
+                                    of <span className="font-medium">{filteredEvents.length}</span> results
+                                </p>
+                            </div>
+                            <div>
+                                <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                                    <button
+                                        onClick={() => handlePageChange(currentPage - 1)}
+                                        disabled={currentPage === 1}
+                                        className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+                                    >
+                                        <ChevronLeft className="h-5 w-5" />
+                                    </button>
+                                    {[...Array(totalPages)].map((_, index) => (
+                                        <button
+                                            key={index + 1}
+                                            onClick={() => handlePageChange(index + 1)}
+                                            className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
+                                                currentPage === index + 1
+                                                    ? 'z-10 bg-yellow-50 border-yellow-500 text-yellow-600'
+                                                    : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
+                                            }`}
+                                        >
+                                            {index + 1}
+                                        </button>
+                                    ))}
+                                    <button
+                                        onClick={() => handlePageChange(currentPage + 1)}
+                                        disabled={currentPage === totalPages}
+                                        className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50"
+                                    >
+                                        <ChevronRight className="h-5 w-5" />
+                                    </button>
+                                </nav>
+                            </div>
+                        </div>
                     </div>
                 )}
             </div>

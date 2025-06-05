@@ -4,6 +4,8 @@ const Event = require('../models/eventModel');
 const Booking = require('../models/bookingModel');
 dotenv.config();
 const sendEmails = require('../utils/sendEmail');
+const emailModel = require('../models/emailModel');
+const advertisement = require('../models/advertisement');
 
 
 const getEvents = async (req, res) => {
@@ -177,7 +179,7 @@ const createBooking = async (req, res) => {
 
 
 const sendEmail = async (req, res) => {
-    console.log(req.body);
+    console.log('Received email submission:', req.body);
     
   const { email } = req.body;
 
@@ -185,28 +187,58 @@ const sendEmail = async (req, res) => {
     return res.status(400).json({ message: 'Email is required' });
   }
 
-  const htmlContent = `
-    <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
-      <h2 style="color: #d63384;">Welcome to <span style="color:#4CAF50">Mc Merrys</span> </h2>
-      <p>Hi there 👋,</p>
-      <p>Thanks for signing up with <strong>${email}</strong>.</p>
-      <p>We're thrilled to have you! Get ready for delicious updates and exclusive treats!</p>
-      <br/>
-      <p style="font-size: 14px; color: #555;">– The Mc Merrys Team</p>
-    </div>
-  `;
-
   try {
+    // Check if email already exists
+    const existingEmail = await emailModel.findOne({ email });
+
+    if (existingEmail) {
+      return res.status(409).json({ message: 'Email already exists!' });
+    }
+
+    // Save to DB
+    const newEmail = new emailModel({ email });
+    await newEmail.save();
+
+    // HTML email content
+    const htmlContent = `
+      <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
+        <h2 style="color: #d63384;">Welcome to <span style="color:#4CAF50">Mc Merrys</span></h2>
+        <p>Hi there 👋,</p>
+        <p>Thanks for signing up with <strong>${email}</strong>.</p>
+        <p>We're thrilled to have you! Get ready for delicious updates and exclusive treats!</p>
+        <br/>
+        <p style="font-size: 14px; color: #555;">– The Mc Merrys Team</p>
+      </div>
+    `;
+
+    // Send welcome email
     await sendEmails(email, '🎉 Welcome to Mc Merrys!', htmlContent);
-    res.status(200).json({ message: 'Email sent successfully!' });
+
+    res.status(200).json({ message: 'Email saved and welcome mail sent!' });
   } catch (error) {
-    res.status(500).json({ message: 'Failed to send email.' });
+    console.error('Error in sendEmail:', error);
+    res.status(500).json({ message: 'Something went wrong. Please try again later.' });
   }
-}
+};
+
+
+const getLatestThreeAdvertisements = async (req, res) => {
+  try {
+    const ads = await advertisement.find()
+      .sort({ createdAt: -1 }) // newest first
+    //   .limit(3); // only 3 items
+
+    res.status(200).json(ads);
+  } catch (error) {
+    console.error('Error fetching advertisements:', error);
+    res.status(500).json({ message: 'Failed to fetch advertisements' });
+  }
+};
 
 module.exports = {
     getEvents,
     getEventById,
     createBooking,
-    sendEmail
+    sendEmail,
+    getLatestThreeAdvertisements
 };

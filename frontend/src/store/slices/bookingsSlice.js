@@ -15,6 +15,20 @@ export const fetchBookings = createAsyncThunk(
     }
 );
 
+// Async thunk to fetch a single booking by ID
+export const fetchBookingById = createAsyncThunk(
+  'bookings/fetchBookingById',
+  async (bookingId, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get(`${ADMIN_ENDPOINTS. BOOKING_BY_ID(bookingId)}`);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || 'Something went wrong');
+    }
+  }
+);
+
+
 export const confirmBooking = createAsyncThunk(
     'bookings/confirmBooking',
     async (bookingId, { rejectWithValue }) => {
@@ -34,7 +48,7 @@ export const deleteBooking = createAsyncThunk(
     'bookings/deleteBooking',
     async (bookingId, { rejectWithValue }) => {
         try {
-            await axiosInstance.delete(ADMIN_ENDPOINTS.BOOKING_BY_ID(bookingId));
+            await axiosInstance.delete(ADMIN_ENDPOINTS.DELETE_BOOKING_BY_ID(bookingId));
             return bookingId;
         } catch (error) {
             return rejectWithValue(error.response.data);

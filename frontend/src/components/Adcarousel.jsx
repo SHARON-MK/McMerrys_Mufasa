@@ -1,23 +1,40 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-
-const adsImages = [
-  'https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=400',
-  'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=400',
-  'https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=400',
-  'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=400',
-];
+import { API_BASE_URL } from '../constants/api';
+import axios from 'axios';
 
 const AdsCarousel = () => {
   const [currentAdsIndex, setCurrentAdsIndex] = useState(0);
+  const [ads, setAds] = useState([]);
 
   useEffect(() => {
-    const adsTimer = setInterval(() => {
-      setCurrentAdsIndex((prevIndex) => (prevIndex + 1) % adsImages.length);
-    }, 3000);
+    const fetchAds = async () => {
+      try {
+        const res = await axios.get(`${API_BASE_URL}/user/ads`);
+        setAds(res.data);
+      } catch (err) {
+        console.error('Error fetching ads:', err);
+      }
+    };
 
-    return () => clearInterval(adsTimer);
+    fetchAds();
   }, []);
+
+  useEffect(() => {
+    if (ads.length > 0) {
+      const adsTimer = setInterval(() => {
+        setCurrentAdsIndex((prevIndex) => (prevIndex + 1) % ads.length);
+      }, 3000);
+
+      return () => clearInterval(adsTimer);
+    }
+  }, [ads]);
+
+  if (!ads || ads.length === 0) {
+    return null;
+  }
+
+  const currentAd = ads[currentAdsIndex];
 
   return (
     <div className="relative z-20 w-full h-32 sm:h-48 md:h-64 mb-6 sm:mb-8">
@@ -33,8 +50,8 @@ const AdsCarousel = () => {
               transition={{ duration: 0.8, ease: 'easeInOut' }}
             >
               <img
-                src={adsImages[currentAdsIndex]}
-                alt={`Advertisement ${currentAdsIndex + 1}`}
+                src={currentAd.image}
+                alt={currentAd.title}
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent"></div>
@@ -44,17 +61,17 @@ const AdsCarousel = () => {
                     initial={{ x: -50, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: 0.3, duration: 0.6 }}
-                    className="text-lg sm:text-xl md:text-2xl  lg:text-3xl font-bold mb-1 sm:mb-8"
+                    className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-1 sm:mb-2"
                   >
-                    Premium Event Services
+                    {currentAd.title}
                   </motion.h3>
                   <motion.p
                     initial={{ x: -50, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: 0.5, duration: 0.6 }}
-                    className="text-sm sm:text-base md:text-lg  opacity-90"
+                    className="text-sm sm:text-base md:text-lg opacity-90"
                   >
-                    Experience luxury like never before
+                    {currentAd.description}
                   </motion.p>
                 </div>
               </div>
@@ -63,7 +80,7 @@ const AdsCarousel = () => {
 
           {/* Ads indicators */}
           <div className="absolute bottom-3 sm:bottom-4 right-4 sm:right-6 flex space-x-2">
-            {adsImages.map((_, index) => (
+            {ads.map((_, index) => (
               <div
                 key={index}
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${

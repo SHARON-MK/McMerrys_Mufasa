@@ -7,5 +7,6 @@ router.post('/create-booking/:id',userController.createBooking);
 router.get('/events',userController.getEvents )
 router.get('/events/:id', userController.getEventById);
 router.post("/send-mail", userController.sendEmail);
+router.get("/ads",userController.getLatestThreeAdvertisements)
 
 module.exports =router;

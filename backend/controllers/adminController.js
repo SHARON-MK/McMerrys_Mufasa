@@ -3,6 +3,9 @@ const Event = require('../models/eventModel');
 const Category = require('../models/categoryModel');
 const cloudinary = require('../config/cloudinary');
 const streamifier = require('streamifier');
+const Booking = require('../models/bookingModel');
+const advertisement = require('../models/advertisement');
+
 
 
 const uploadToCloudinary = (buffer) => {
@@ -243,6 +246,175 @@ const toggleEventStatus = async (req, res) => {
     }
 };
 
+
+const getAllBookings = async (req, res) => {
+  try {
+    const bookings = await Booking.find();
+    res.status(200).json(bookings);
+  } catch (error) {
+    console.error("Error fetching bookings:", error);
+    res.status(500).json({ message: "Failed to fetch bookings", error: error.message });
+  }
+};
+
+const getBookingById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const booking = await Booking.findById(id);
+
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    }
+
+    res.status(200).json(booking);
+  } catch (error) {
+    console.error('Error fetching booking:', error);
+    res.status(500).json({ message: 'Failed to fetch booking', error: error.message });
+  }
+};
+
+const updateBookingStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const booking = await Booking.findByIdAndUpdate(
+      id,
+      { status: 'confirmed' },
+      { new: true }
+    );
+
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    }
+
+    res.status(200).json({ message: 'Booking confirmed successfully', booking });
+  } catch (error) {
+    console.error('Error confirming booking:', error);
+    res.status(500).json({ message: 'Failed to confirm booking', error: error.message });
+  }
+};
+
+
+const deleteBookingById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const booking = await Booking.findByIdAndDelete(id);
+
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    }
+
+    res.status(200).json({ message: 'Booking deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting booking:', error);
+    res.status(500).json({ message: 'Failed to delete booking', error: error.message });
+  }
+};
+
+
+
+const fetchEmails = async (req, res) => {
+  try {
+    const emails = await Email.find().sort({ createdAt: -1 }); // latest first
+    res.status(200).json(emails);
+  } catch (error) {
+    console.error('Error fetching emails:', error);
+    res.status(500).json({ message: 'Failed to fetch emails', error: error.message });
+  }
+};
+
+
+ const getadvertisements=async (req, res) => {
+     const advertisements = await advertisement.find({}).sort({ createdAt: -1 });
+     res.json(advertisements);
+ }
+
+
+const createAdvertisement = async (req, res) => {
+  try {
+    const { title, description } = req.body;
+
+    // Validate required text fields
+    if (!title || !description) {
+      return res.status(400).json({ message: 'Title and description are required' });
+    }
+
+    // Validate image file
+    if (!req.file) {
+      return res.status(400).json({ message: 'Image is required' });
+    }
+
+    // Upload image to Cloudinary
+    const result = await uploadToCloudinary(req.file.buffer); // result.secure_url
+const advertisements = await new advertisement({
+  title,
+  description,
+  image: result.secure_url,
+});
+
+advertisements.save(); 
+
+    // Respond with created advertisement
+    res.status(201).json({
+      message: 'Advertisement created successfully',
+      advertisement,
+    });
+  } catch (error) {
+    console.error('Error creating advertisement:', error);
+    res.status(500).json({ message: 'Server error. Could not create advertisement.' });
+  }
+};
+
+
+
+ const deleteAdvertisements = async (req, res) => {
+     const advertisements = await advertisement.findById(req.params.id);
+ 
+     if (!advertisements) {
+         res.status(404);
+         throw new Error('Advertisement not found');
+     }
+ 
+     // Delete image from cloudinary if it exists
+     if (advertisements.image) {
+         const publicId = advertisements.image.split('/').pop().split('.')[0];
+         await cloudinary.uploader.destroy(publicId);
+     }
+ 
+     await advertisements.deleteOne();
+     res.json({ message: 'Advertisement removed' });
+ }
+
+
+ const updateAdvertisements = async (req, res) => {
+  // console.log(req.params.id);
+  
+  try {
+    const  id  = req.params.id;
+    const { title, description } = req.body;
+
+    const updated = await advertisement.findByIdAndUpdate(
+      id,
+      { title, description },
+      { new: true, runValidators: true }
+    );
+
+    if (!updated) {
+      return res.status(404).json({ message: 'Advertisement not found' });
+    }
+
+    res.status(200).json({ message: 'Advertisement updated successfully', updated });
+  } catch (error) {
+    console.error('Update error:', error);
+    res.status(500).json({ message: 'Server error while updating advertisement' });
+  }
+};
+
+
+
+
 module.exports = {
     getAdmin,
     // Category operations
@@ -259,5 +431,18 @@ module.exports = {
     getEventById,
     updateEvent,
     deleteEvent,
-    toggleEventStatus
+    toggleEventStatus,
+
+    getAllBookings,
+    getBookingById,
+    updateBookingStatus,
+    deleteBookingById,
+
+    fetchEmails,
+    
+    createAdvertisement,
+    getadvertisements,
+    deleteAdvertisements,
+    updateAdvertisements
+
 };

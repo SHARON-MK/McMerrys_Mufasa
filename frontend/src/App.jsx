@@ -13,6 +13,9 @@ import Bookings from './pages/admin/Bookings';
 import Categories from './pages/admin/Categories';
 import EventDetails from './components/EventDetails';
 import PublicLayout from './layout';
+import Advertisements from './pages/admin/Advertisements';
+import EmailSubmission from './pages/admin/EmailSubmissions'
+import BookingView from './pages/admin/BookingView';
 
 // Protected Route component for admin routes
 const ProtectedRoute = ({ children }) => {
@@ -119,11 +122,35 @@ function App() {
                         </ProtectedRoute>
                     }
                 />
+                   <Route
+                    path="/admin/ads"
+                    element={
+                        <ProtectedRoute>
+                            <Advertisements />
+                        </ProtectedRoute>
+                    }
+                />
                 <Route
                     path="/admin/bookings"
                     element={
                         <ProtectedRoute>
                             <Bookings />
+                        </ProtectedRoute>
+                    }
+                />
+                 <Route
+                    path="/admin/inquiries"
+                    element={
+                        <ProtectedRoute>
+                            <EmailSubmission />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/admin/bookings/:id"
+                    element={
+                        <ProtectedRoute>
+                            <BookingView />
                         </ProtectedRoute>
                     }
                 />

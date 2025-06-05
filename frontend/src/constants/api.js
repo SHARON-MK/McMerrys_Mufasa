@@ -17,6 +17,15 @@ export const ADMIN_ENDPOINTS = {
     BOOKINGS: `${API_BASE_URL}/admin/bookings`,
     BOOKING_BY_ID: (id) => `${API_BASE_URL}/admin/bookings/${id}`,
     CONFIRM_BOOKING: (id) => `${API_BASE_URL}/admin/bookings/${id}/confirm`,
+    DELETE_BOOKING_BY_ID: (id) => `${API_BASE_URL}/admin/bookings/${id}`,
+    FETCH_EMAIL_DATA: `${API_BASE_URL}/admin/email-data`,
+
+    CREATE_AD :`${API_BASE_URL}/admin/create-ad`,
+      DELETE: (id) => `${API_BASE_URL}/admin/advertisements/${id}`,
+         UPDATE: (id) => `${API_BASE_URL}/admin/advertisements/${id}`,
+           LIST:   `${API_BASE_URL}/admin/advertisements`,
+
+ 
 };
 
 // Public Endpoints
