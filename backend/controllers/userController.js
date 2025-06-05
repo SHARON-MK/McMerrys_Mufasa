@@ -192,7 +192,7 @@ const sendEmail = async (req, res) => {
     const existingEmail = await emailModel.findOne({ email });
 
     if (existingEmail) {
-      return res.status(409).json({ message: 'Email already exists!' });
+      return res.status(409).json({ message: 'Already exist We will contact You Soon!' });
     }
 
     // Save to DB
@@ -201,14 +201,21 @@ const sendEmail = async (req, res) => {
 
     // HTML email content
     const htmlContent = `
-      <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
-        <h2 style="color: #d63384;">Welcome to <span style="color:#4CAF50">Mc Merrys</span></h2>
-        <p>Hi there 👋,</p>
-        <p>Thanks for signing up with <strong>${email}</strong>.</p>
-        <p>We're thrilled to have you! Get ready for delicious updates and exclusive treats!</p>
-        <br/>
-        <p style="font-size: 14px; color: #555;">– The Mc Merrys Team</p>
-      </div>
+   <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 30px; background-color: #f9f9f9; color: #333; border-radius: 10px; max-width: 600px; margin: auto; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+  <h2 style="color: #d1da25; margin-bottom: 10px;">Welcome to <span style="color: #4CAF50;">Mc Merrys</span> 🎉</h2>
+  
+  <p style="font-size: 16px;">Hi there 👋,</p>
+  
+  <p style="font-size: 16px;">Thanks for signing up with <strong style="color: #4CAF50;">${email}</strong>.</p>
+  
+  <p style="font-size: 16px;">We’re excited to have you on board! 🍔🎈 Get ready for delicious updates, exclusive treats, and some sweet surprises coming your way.</p>
+  
+  <p style="font-size: 16px;">We’ll get in touch with you shortly. Until then, stay awesome!</p>
+  
+  <br/>
+  <p style="font-size: 14px; color: #777;">– The Mc Merrys Team</p>
+</div>
+
     `;
 
     // Send welcome email

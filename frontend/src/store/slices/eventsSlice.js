@@ -1,10 +1,22 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { PUBLIC_ENDPOINTS } from '../../constants/api';
+import { ADMIN_ENDPOINTS, PUBLIC_ENDPOINTS } from '../../constants/api';
 import axiosInstance from '../../utils/axios';
 import axios from 'axios';
 
 // Async thunks
 export const fetchEvents = createAsyncThunk(
+    'events/fetchEvents',
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await axiosInstance.get(`${ADMIN_ENDPOINTS.EVENTS}`);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data?.message || 'Failed to fetch events');
+        }
+    }
+);
+
+export const fetchEventss = createAsyncThunk(
     'events/fetchEvents',
     async (_, { rejectWithValue }) => {
         try {
@@ -20,11 +32,7 @@ export const createEvent = createAsyncThunk(
     'events/createEvent',
     async (eventData, { rejectWithValue }) => {
         try {
-            const response = await axiosInstance.post(`${PUBLIC_ENDPOINTS}/events`, eventData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
+            const response = await axiosInstance.post(`${ADMIN_ENDPOINTS.EVENTS}`, eventData);
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || 'Failed to create event');
@@ -36,11 +44,7 @@ export const updateEvent = createAsyncThunk(
     'events/updateEvent',
     async ({ eventId, eventData }, { rejectWithValue }) => {
         try {
-            const response = await axiosInstance.put(`${PUBLIC_ENDPOINTS}/events/${eventId}`, eventData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
+            const response = await axiosInstance.put(`${ADMIN_ENDPOINTS.EVENT_BY_ID(eventId)}`, eventData);
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || 'Failed to update event');
@@ -52,7 +56,7 @@ export const deleteEvent = createAsyncThunk(
     'events/deleteEvent',
     async (eventId, { rejectWithValue }) => {
         try {
-            await axiosInstance.delete(`${PUBLIC_ENDPOINTS}/events/${eventId}`);
+            await axiosInstance.delete(`${ADMIN_ENDPOINTS.EVENT_BY_ID(eventId)}`);
             return eventId;
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || 'Failed to delete event');

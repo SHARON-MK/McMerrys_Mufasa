@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { fetchEvents } from '../../store/slices/eventsSlice';
+import { fetchEventss } from '../../store/slices/eventsSlice';
 
 const EventPage = () => {
   const [searchParams] = useSearchParams();
@@ -19,7 +19,7 @@ const EventPage = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(fetchEvents());
+    dispatch(fetchEventss());
   }, [dispatch]);
 
   const filteredEvents = events.filter(event =>

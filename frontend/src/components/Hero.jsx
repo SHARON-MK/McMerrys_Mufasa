@@ -35,7 +35,8 @@ const Hero = () => {
     }
   } catch (error) {
     console.error('Email submission failed:', error);
-    alert('Failed to send email. Please try again later.');
+   alert(`${response.data.message}||'Failed to send email. Please try again later.'`);
+
   }
 };
 

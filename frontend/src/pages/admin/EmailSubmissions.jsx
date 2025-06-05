@@ -44,7 +44,10 @@ const EmailSubmissions = () => {
     const fetchEmailData = async () => {
       try {
         const response = await axiosInstance.get(ADMIN_ENDPOINTS.FETCH_EMAIL_DATA);
+        console.log(response.data);
+        
         setSubmissions(response.data);
+        
       } catch (error) {
         console.error('Failed to fetch email data:', error);
         setError(error.response?.data?.message || 'Something went wrong');
@@ -64,13 +67,13 @@ const EmailSubmissions = () => {
 
     const handleDownloadExcel = () => {
         // Create CSV content
-        const headers = ['Email', 'Date', 'Status'];
+        const headers = ['Email', 'CreatedDate', ];
         const csvContent = [
             headers.join(','),
             ...submissions.map(sub => [
                 sub.email,
-                new Date(sub.date).toLocaleDateString(),
-                sub.status
+                new Date(sub.createdAt).toLocaleDateString(),
+                // sub.status
             ].join(','))
         ].join('\n');
 
@@ -112,13 +115,13 @@ const EmailSubmissions = () => {
                             <Download className="w-4 h-4" />
                             Excel
                         </button>
-                        <button
+                        {/* <button
                             onClick={handleDownloadPDF}
                             className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 flex items-center gap-2"
                         >
                             <Download className="w-4 h-4" />
                             PDF
-                        </button>
+                        </button> */}
                     </div>
                 </div>
 
@@ -172,12 +175,12 @@ const EmailSubmissions = () => {
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Date
                                     </th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Status
                                     </th>
                                     <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Actions
-                                    </th>
+                                    </th> */}
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
@@ -188,10 +191,10 @@ const EmailSubmissions = () => {
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             <div className="text-sm text-gray-500">
-                                                {new Date(submission.date).toLocaleDateString()}
+                                                {new Date(submission.createdAt).toLocaleDateString()}
                                             </div>
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
+                                        {/* <td className="px-6 py-4 whitespace-nowrap">
                                             <div className="flex items-center">
                                                 {submission.status === 'sent' ? (
                                                     <CheckCircle2 className="w-5 h-5 text-green-500" />
@@ -202,8 +205,8 @@ const EmailSubmissions = () => {
                                                     {submission.status}
                                                 </span>
                                             </div>
-                                        </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                        </td> */}
+                                        {/* <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                             <div className="flex justify-end gap-2">
                                                 <button
                                                     onClick={() => handleViewDetails(submission.id)}
@@ -222,7 +225,7 @@ const EmailSubmissions = () => {
                                                     </button>
                                                 )}
                                             </div>
-                                        </td>
+                                        </td> */}
                                     </tr>
                                 ))}
                             </tbody>

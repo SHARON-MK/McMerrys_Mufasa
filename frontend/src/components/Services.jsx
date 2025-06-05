@@ -34,6 +34,7 @@ const Services = () => {
       gradient: 'from-pink-500/20 to-purple-600/20'
     },
     
+    
   
   ];
 
@@ -142,7 +143,7 @@ const Services = () => {
                     >
                       <span className="flex items-center justify-center gap-2">
                         <Camera className="w-5 h-5" />
-                        Plan My Birthday Event
+                        Plan Birthday Event
                       </span>
                     </button>
                   </div>

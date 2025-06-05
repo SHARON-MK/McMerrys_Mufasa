@@ -45,7 +45,7 @@ function App() {
         if (!isAdminRoute) {
             const timer = setTimeout(() => {
                 setLoading(false);
-            }, 4000);
+            }, 2000);
             return () => clearTimeout(timer);
         } else {
             setLoading(false);

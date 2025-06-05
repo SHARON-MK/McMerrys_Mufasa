@@ -22,8 +22,8 @@ const Footer = () => {
             <h4 className="font-semibold mb-4 text-black">Contact</h4>
             <ul className="space-y-2 text-gray-700">
               <li>Email: info@mcmerrys.com</li>
-              <li>Phone: +1 234 567 890</li>
-              <li>Address: 123 Business St</li>
+              {/* <li>Phone: +1 234 567 890</li> */}
+              <li>Address: No.91 Temple road, Malleswaram Vayalikaval Police Station, Bangalore North, Bangalore 560003 Karnataka, India</li>
             </ul>
           </div>
           <div className="text-center md:text-left">
@@ -36,7 +36,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="mt-8 pt-8 border-t border-black/10 text-center text-gray-700">
-          <p>&copy; 2025 MC MERRYS. All rights reserved.</p>
+          <p>&copy; 2025 MUFASA MANAGEMENT SERVICES. All rights reserved.</p>
         </div>
       </div>
     </footer>

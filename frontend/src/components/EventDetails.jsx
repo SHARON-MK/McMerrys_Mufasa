@@ -450,7 +450,10 @@ const EventDetails = () => {
                   </span>
                   <div className="flex items-center">
                     <div className="w-3 h-3 bg-yellow-400 rounded-full animate-pulse mr-2"></div>
-                    <span className="text-yellow-400 text-sm font-bold">AVAILABLE NOW</span>
+                   <span className={`text-sm font-bold ${event.isActive ? 'text-yellow-400' : 'text-red-500'}`}>
+  {event.isActive ? 'AVAILABLE NOW' : 'UNAVAILABLE'}
+</span>
+
                   </div>
                 </div>
                 
@@ -538,25 +541,42 @@ const EventDetails = () => {
                 </div>
                 
                 <div className="flex justify-between items-center bg-black/50 p-3 rounded-xl">
-                  <span className="text-yellow-100 font-medium">Status:</span>
-                  <span className="text-green-400 font-bold flex items-center">
-                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse mr-2"></div>
-                    Available
-                  </span>
-                </div>
+  <span className="text-yellow-100 font-medium">Status:</span>
+  <span
+    className={`font-bold flex items-center ${
+      event.isActive ? 'text-green-400' : 'text-red-400'
+    }`}
+  >
+    <div
+      className={`w-2 h-2 rounded-full mr-2 ${
+        event.isActive ? 'bg-green-400 animate-pulse' : 'bg-red-400'
+      }`}
+    ></div>
+    {event.isActive ? 'Available' : 'Unavailable'}
+  </span>
+</div>
+
               </div>
 
               {/* Book Now Button */}
-              <button
-                onClick={() => setShowBookingForm(true)}
-                className="w-full bg-yellow-400 text-black px-8 py-4 rounded-2xl font-bold hover:bg-yellow-300 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-2xl border-4 border-black group"
-              >
-                <span className="flex items-center justify-center">
-                  <span className="mr-2 text-xl">🚀</span>
-                  Book Now
-                  <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">→</span>
-                </span>
-              </button>
+            <button
+  onClick={() => event.isActive && setShowBookingForm(true)}
+  disabled={!event.isActive}
+  className={`w-full px-8 py-4 rounded-2xl font-bold transition-all duration-300 transform shadow-lg border-4 group
+    ${event.isActive
+      ? 'bg-yellow-400 text-black hover:bg-yellow-300 hover:scale-105 hover:shadow-2xl border-black'
+      : 'bg-gray-400 text-gray-700 cursor-not-allowed border-gray-500'}
+  `}
+>
+  <span className="flex items-center justify-center">
+    <span className="mr-2 text-xl">{event.isActive == true ? '🚀' : '⛔'}</span>
+    {event.isActive ? 'Book Now' : 'Unavailable'}
+    {event.isActive && (
+      <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">→</span>
+    )}
+  </span>
+</button>
+
 
               {/* Guarantee Badge */}
               <div className="mt-6 text-center">

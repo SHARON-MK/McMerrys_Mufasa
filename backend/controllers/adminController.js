@@ -1,4 +1,4 @@
-
+const emailModel = require("../models/emailModel")
 const Event = require('../models/eventModel');
 const Category = require('../models/categoryModel');
 const cloudinary = require('../config/cloudinary');
@@ -317,7 +317,7 @@ const deleteBookingById = async (req, res) => {
 
 const fetchEmails = async (req, res) => {
   try {
-    const emails = await Email.find().sort({ createdAt: -1 }); // latest first
+    const emails = await emailModel.find().sort({ createdAt: -1 }); // latest first
     res.status(200).json(emails);
   } catch (error) {
     console.error('Error fetching emails:', error);
