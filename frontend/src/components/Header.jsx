@@ -35,8 +35,8 @@ const Header = () => {
   }, [lastScrollY]);
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-60 transition-all duration-300 ${
-      isScrolled ? 'shadow-lg bg-black bg-opacity-70 text-white' : 'text-black'
+    <header className={`fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-60 transition-all duration-300 rounded-b-3xl ${
+      isScrolled ? 'shadow-lg bg-black bg-opacity-70 text-white rounded-b-3xl' : 'text-black'
     } ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
       <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6">
         <Link to="/">

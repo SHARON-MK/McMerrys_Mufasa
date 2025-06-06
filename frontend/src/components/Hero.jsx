@@ -42,7 +42,7 @@ const Hero = () => {
 
 
   return (
-    <section className="relative py-8 min-h-[95vh] overflow-hidden flex flex-col">
+    <section className="relative py-8 min-h-[95vh] overflow-hidden flex flex-col  rounded-b-3xl">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <div 

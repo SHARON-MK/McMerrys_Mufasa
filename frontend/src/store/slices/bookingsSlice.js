@@ -35,7 +35,7 @@ export const confirmBooking = createAsyncThunk(
         try {
             const response = await axiosInstance.patch(
                 ADMIN_ENDPOINTS.CONFIRM_BOOKING(bookingId),
-                {}
+                
             );
             return response.data;
         } catch (error) {
