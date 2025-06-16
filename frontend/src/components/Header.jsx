@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../public/logo/logo.png';
+import logo from '../../public/logo/mlogo.png';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -44,7 +44,7 @@ const Header = () => {
             <img 
               src={logo} 
               alt="MC MERRYS Logo" 
-              className="h-5 sm:h-6 md:h-8 w-auto"
+               className="h-10 sm:h-12 md:h-15 w-auto"
             />
             <h1 className={`text-lg sm:text-xl md:text-2xl font-bold tracking-wider ${
               isScrolled ? 'text-yellow-300' : 'text-yellow-300'

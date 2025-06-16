@@ -49,11 +49,14 @@ export default function SocialEventsBooking() {
 
               <div className="absolute top-3 left-1/2 -translate-x-1/2">
                 <Link to="/event?name=Corporate Events" className="flex flex-col items-center hover:scale-105 transition-transform duration-300">
-                  <div className="bg-black rounded-full shadow-lg w-12 h-12 md:w-16 md:h-16 overflow-hidden flex items-center justify-center animate-float-icon">
+                  <div
+                    className="bg-white/50 backdrop-blur-sm p-2 rounded-full shadow-lg w-16 h-16 md:w-20 md:h-20 flex items-center justify-center animate-float-icon"
+                    style={{ animationDelay: "1s" }}
+                  >
                     <img
                       src="https://img.freepik.com/free-photo/yes_53876-47102.jpg?semt=ais_hybrid&w=740"
                       alt="Corporate"
-                      className="w-full h-full object-cover"
+                      className="w-12 h-12 md:w-16 md:h-16 rounded-full object-cover object-center"
                     />
                   </div>
                   <span className="mt-2 text-black font-bold text-base md:text-lg">Corporate Events</span>
@@ -63,23 +66,17 @@ export default function SocialEventsBooking() {
               {/* Social Events - Bottom Left */}
               <div className="absolute bottom-20 md:bottom-20 left-0 md:left-20">
                 <Link to="/event?name=Social Events" className="flex flex-col items-center hover:scale-105 transition-transform duration-300">
-                  {/* <div className="bg-white/50 backdrop-blur-sm p-2 rounded-full shadow-lg w-16 h-16 md:w-20 md:h-20 flex items-center justify-center">
-                    <img 
-                      src="https://img.freepik.com/premium-vector/social-media-community-icon_24908-31874.jpg" 
-                      alt="Social Events"
-                      className="w-12 h-12 md:w-16 md:h-16 rounded-full object-cover object-center"
-                    />
-                  </div> */}
                   <div
-                    className="bg-black rounded-full shadow-lg w-12 h-12 md:w-16 md:h-16 overflow-hidden flex items-center justify-center animate-float-icon"
+                    className="bg-white/50 backdrop-blur-sm p-2 rounded-full shadow-lg w-16 h-16 md:w-20 md:h-20 flex items-center justify-center animate-float-icon"
                     style={{ animationDelay: "1s" }}
                   >
                     <img
                       src="https://img.freepik.com/free-photo/medium-shot-family-celebrating-4th-july_23-2149383077.jpg?ga=GA1.1.361569955.1750094838&semt=ais_hybrid&w=740"
-                      alt="Social"
-                      className="w-full h-full object-cover"
+                      alt="Social Events"
+                      className="w-12 h-12 md:w-16 md:h-16 rounded-full object-cover object-center"
                     />
                   </div>
+
                   <span className="mt-2 text-black font-bold  text-base md:text-lg">Social Events</span>
                 </Link>
               </div>
@@ -87,14 +84,14 @@ export default function SocialEventsBooking() {
               {/* School Events - Bottom Right */}
               <div className="absolute bottom-20 md:bottom-20 right-0 md:right-20">
                 <Link to="/event?name=School Events" className="flex flex-col items-center hover:scale-105 transition-transform duration-300">
-                  <div
-                    className="bg-black rounded-full shadow-lg w-12 h-12 md:w-16 md:h-16 overflow-hidden flex items-center justify-center animate-float-icon"
-                    style={{ animationDelay: "2s" }}
+                <div
+                    className="bg-white/50 backdrop-blur-sm p-2 rounded-full shadow-lg w-16 h-16 md:w-20 md:h-20 flex items-center justify-center animate-float-icon"
+                    style={{ animationDelay: "1s" }}
                   >
                     <img
                       src="https://cdn.pixabay.com/photo/2016/11/23/15/48/audience-1853662_1280.jpg"
                       alt="School"
-                      className="w-full h-full object-cover"
+                       className="w-12 h-12 md:w-16 md:h-16 rounded-full object-cover object-center"
                     />
                   </div>
                   <span className="mt-2 text-black font-bold  text-base md:text-lg">School Events</span>
