@@ -10,7 +10,7 @@ const advertisement = require('../models/advertisement');
 
 const getEvents = async (req, res) => {
     try {
-        const events = await Event.find().sort({ date: 1 }).populate('category', 'name description').exec();;
+        const events = await Event.find().sort({ createdAt: 1 }).populate('category', 'name description').exec();;
         res.json(events);
     } catch (error) {
         console.error('Error fetching events:', error);
