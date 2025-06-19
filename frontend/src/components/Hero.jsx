@@ -107,7 +107,7 @@ const Hero = () => {
               transition={{ duration: 0.8, delay: 0.6 }} 
               className="mb-8 sm:mb-1" 
             >
-              <p className="text-sm sm:text-sm font-arcaBold lg:text-l text-gray-400 max-w-1xl mx-auto leading-relaxed  p-4 sm:p-6"> 
+              <p className="text-xs sm:text-sm font-arcaBold lg:text-l text-gray-400 max-w-1xl mx-auto leading-relaxed  p-4 sm:p-6"> 
                 WE HANDLE EVERY DETAIL TO MAKE YOUR SOCIAL, CORPORATE, OR WEDDING EVENT UNFORGETTABLE
               </p>
             </motion.div>
