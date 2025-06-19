@@ -29,9 +29,8 @@ const Footer = () => {
           <div className="text-center md:text-left">
             <h4 className="font-semibold mb-4 text-black">Follow Us</h4>
             <div className="flex justify-center md:justify-start space-x-4">
-              <a href="#" className="text-gray-700 hover:text-black">Facebook</a>
-              <a href="#" className="text-gray-700 hover:text-black">Twitter</a>
-              <a href="#" className="text-gray-700 hover:text-black">Instagram</a>
+              <a href="https://www.facebook.com/share/16WRrXHzNx/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-black">Facebook</a>
+              <a href="https://www.instagram.com/mcmerrys_" target="_blank" rel="noopener noreferrer" className="text-gray-700 hover:text-black">Instagram</a>
             </div>
           </div>
         </div>
