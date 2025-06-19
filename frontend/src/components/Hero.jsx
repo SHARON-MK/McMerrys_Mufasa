@@ -79,7 +79,7 @@ const Hero = () => {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="mb-6 sm:mb-8 md:mb-8" 
             >
-              <h1 className="text-3xl sm:text-4xl md:text-3xl lg:text-4xl xl:text-5xl mt-4 text-white leading-tight">
+              <h1 className="text-2xl sm:text-4xl md:text-3xl lg:text-4xl xl:text-5xl mt-4 text-white leading-tight">
                 <motion.span 
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
