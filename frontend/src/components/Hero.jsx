@@ -8,47 +8,35 @@ const Hero = () => {
   const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const isValidEmail = (email) => {
-      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return regex.test(email);
-    };
-
+    const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     if (!email || !isValidEmail(email)) {
       return alert('Please enter a valid email address');
     }
+
+    setIsLoading(true);
 
     try {
       const response = await axios.post(`${PUBLIC_ENDPOINTS.EMAIL_SUBMISSION}`, { email });
 
       if (response.status === 200) {
-        console.log('Email sent successfully');
         setIsSubmitted(true);
         setEmail('');
-
-        setTimeout(() => {
-          setIsSubmitted(false);
-        }, 3000);
+        setTimeout(() => setIsSubmitted(false), 3000);
       }
     } catch (error) {
-      console.error('Email submission failed:', error);
-
-      if (error.response && error.response.status === 409) {
-        const errMsg = error.response.data?.message || 'Email already registered, we will contact you soon 🙌	.';
-        setErrorMessage(errMsg);
+      if (error.response?.status === 409) {
+        setErrorMessage(error.response.data?.message || '📧 You’re already on our list! We’ll be in touch soon.');
         setTimeout(() => setErrorMessage(''), 3000);
       } else {
-        let errMsg = 'Failed to send email. Please try again later.';
-        if (error.response?.data?.message) {
-          errMsg = error.response.data.message;
-        } else if (error.message) {
-          errMsg = error.message;
-        }
-        alert(errMsg);
+        alert(error.response?.data?.message || 'Something went wrong. Try again later.');
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -85,6 +73,7 @@ const Hero = () => {
       <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center flex-1 py-4 sm:py-8">
         <div className="w-full mb-8 lg:mb-0">
           <div className="max-w-full mx-auto text-center">
+            {/* Headings */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -112,6 +101,7 @@ const Hero = () => {
               </h1>
             </motion.div>
 
+            {/* Subtitle */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -123,7 +113,7 @@ const Hero = () => {
               </p>
             </motion.div>
 
-            {/* Form or Message */}
+            {/* Message or Form */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -131,7 +121,7 @@ const Hero = () => {
               className="mb-8 sm:mb-10 md:mb-12"
             >
               {isSubmitted ? (
-                // ✅ Success Message
+                // ✅ Success
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -146,22 +136,22 @@ const Hero = () => {
                   </div>
                 </motion.div>
               ) : errorMessage ? (
-                // ❌ Email already exists Message
+                // ❌ Already exists
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.3 }}
                   className="max-w-xl mx-auto"
                 >
-                  <div className="bg-red-500/20 border border-red-600/40 rounded-lg px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-center gap-2 sm:gap-3 backdrop-blur-sm">
-                    <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-red-700" />
-                    <span className="text-red-500 font-medium text-sm sm:text-base">
-                      {errorMessage}
+                  <div className="bg-green-500/20 border border-green-600/40 rounded-lg px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-center gap-2 sm:gap-3 backdrop-blur-sm">
+                    <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-700" />
+                    <span className="text-green-500 font-medium text-sm sm:text-base">
+                      📧 Already registered! We’ll contact you soon.
                     </span>
                   </div>
                 </motion.div>
               ) : (
-                // 📨 Email Input Form
+                // 📨 Email Form
                 <div className="max-w-xl mx-auto">
                   <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center">
                     <div className="w-full sm:flex-grow">
@@ -176,10 +166,23 @@ const Hero = () => {
                     </div>
                     <button
                       onClick={handleSubmit}
-                      className="w-fit bg-[#fff700] font-arcaBold text-black px-4 sm:px-6 md:px-8 py-3.5 sm:py-3 md:py-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 whitespace-nowrap shadow-lg text-sm sm:text-base hover:bg-yellow-800 transform hover:scale-105"
+                      disabled={isLoading}
+                      className={`w-fit bg-[#fff700] font-arcaBold text-black px-4 sm:px-6 md:px-8 py-3.5 sm:py-3 md:py-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 whitespace-nowrap shadow-lg text-sm sm:text-base ${isLoading ? 'opacity-60 cursor-not-allowed' : 'hover:bg-yellow-800 transform hover:scale-105'}`}
                     >
-                      Get Started
-                      <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                      {isLoading ? (
+                        <>
+                          <svg className="animate-spin h-4 w-4 text-black" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3-3-3-3v4a10 10 0 00-10 10h4z" />
+                          </svg>
+                          <span className="ml-2">Submitting...</span>
+                        </>
+                      ) : (
+                        <>
+                          Get Started
+                          <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                        </>
+                      )}
                     </button>
                   </div>
                 </div>
