@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, ArrowRight, CheckCircle } from 'lucide-react';
+import { Mail, ArrowRight, CheckCircle, AlertTriangle } from 'lucide-react';
 import axios from 'axios';
 import { PUBLIC_ENDPOINTS } from '../constants/api';
 
@@ -14,7 +14,6 @@ const EmailSubscription = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage('');
-
     if (!email || !isValidEmail(email)) {
       setErrorMessage('Please enter a valid email address');
       return;
@@ -32,10 +31,10 @@ const EmailSubscription = () => {
       }
     } catch (error) {
       if (error.response?.status === 409) {
-        setErrorMessage('📧 You’re already on our list! We’ll be in touch shortly.');
+        setErrorMessage("You're already subscribed! 📧");
         setTimeout(() => setErrorMessage(''), 3000);
       } else {
-        setErrorMessage('Something went wrong. Please try again later.');
+        setErrorMessage('Something went wrong. Please try again.');
       }
     } finally {
       setIsLoading(false);
@@ -51,39 +50,32 @@ const EmailSubscription = () => {
             Subscribe to our newsletter for the latest updates and exclusive offers
           </p>
 
-          {/* ✅ Success Message */}
-          {isSubmitted && (
-            <div className="mb-4 flex items-center justify-center gap-2 bg-green-100 border border-green-300 text-green-700 rounded-lg px-4 py-3">
-              <CheckCircle className="w-4 h-4" />
-              <span>🎉 Thank you for subscribing! We’ll keep you updated.</span>
-            </div>
-          )}
-
-          {/* ❌ Error Message */}
-          {errorMessage && (
-            <div className="mb-4 flex items-center justify-center gap-2 bg-red-100 border border-red-300 text-red-700 rounded-lg px-4 py-3">
-              <CheckCircle className="w-4 h-4 text-red-600" />
-              <span>{errorMessage}</span>
-            </div>
-          )}
-
+          {/* Email Input Form */}
           <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-4 justify-center">
             <div className="relative flex-grow max-w-md">
               <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                 <Mail className="w-5 h-5 text-gray-500" />
               </div>
+
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email"
+                placeholder={
+                  isSubmitted
+                    ? '✅ You’re subscribed!'
+                    : errorMessage
+                    ? errorMessage
+                    : 'Enter your email'
+                }
                 className={`w-full pl-12 pr-4 py-3 rounded-lg border ${
-                  errorMessage ? 'border-red-500' : 'border-black/10'
-                } focus:outline-none focus:ring-2 focus:ring-black/20 bg-white text-black placeholder-gray-500`}
+                  errorMessage ? 'border-red-500 text-red-600' : 'border-black/10'
+                } focus:outline-none focus:ring-2 focus:ring-black/20 bg-white placeholder-gray-500 text-black`}
                 disabled={isLoading}
                 required
               />
             </div>
+
             <button
               type="submit"
               disabled={isLoading}
