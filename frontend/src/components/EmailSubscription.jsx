@@ -1,45 +1,42 @@
 import React, { useState } from 'react';
-import { Mail, ArrowRight } from 'lucide-react';
+import { Mail, ArrowRight, CheckCircle } from 'lucide-react';
 import axios from 'axios';
 import { PUBLIC_ENDPOINTS } from '../constants/api';
 
 const EmailSubscription = () => {
   const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [error, setError] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const isValidEmail = (email) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
-  };
+  const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setErrorMessage('');
 
     if (!email || !isValidEmail(email)) {
-      setError('Please enter a valid email address');
+      setErrorMessage('Please enter a valid email address');
       return;
     }
 
+    setIsLoading(true);
+
     try {
-      setIsLoading(true);
       const response = await axios.post(PUBLIC_ENDPOINTS.EMAIL_SUBMISSION, { email });
 
       if (response.status === 200) {
         setIsSubmitted(true);
         setEmail('');
-        setError('');
-
-        // Reset success message after 3 seconds
-        setTimeout(() => {
-          setIsSubmitted(false);
-        }, 3000);
+        setTimeout(() => setIsSubmitted(false), 3000);
       }
     } catch (error) {
-      console.error('Email submission failed:', error);
-      setError(error.response?.data?.message || 'Failed to subscribe. Please try again later.');
+      if (error.response?.status === 409) {
+        setErrorMessage('📧 You’re already on our list! We’ll be in touch shortly.');
+        setTimeout(() => setErrorMessage(''), 3000);
+      } else {
+        setErrorMessage('Something went wrong. Please try again later.');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -53,7 +50,23 @@ const EmailSubscription = () => {
           <p className="text-gray-700 font-netflix mb-8">
             Subscribe to our newsletter for the latest updates and exclusive offers
           </p>
-          
+
+          {/* ✅ Success Message */}
+          {isSubmitted && (
+            <div className="mb-4 flex items-center justify-center gap-2 bg-green-100 border border-green-300 text-green-700 rounded-lg px-4 py-3">
+              <CheckCircle className="w-4 h-4" />
+              <span>🎉 Thank you for subscribing! We’ll keep you updated.</span>
+            </div>
+          )}
+
+          {/* ❌ Error Message */}
+          {errorMessage && (
+            <div className="mb-4 flex items-center justify-center gap-2 bg-red-100 border border-red-300 text-red-700 rounded-lg px-4 py-3">
+              <CheckCircle className="w-4 h-4 text-red-600" />
+              <span>{errorMessage}</span>
+            </div>
+          )}
+
           <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-4 justify-center">
             <div className="relative flex-grow max-w-md">
               <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -65,14 +78,11 @@ const EmailSubscription = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
                 className={`w-full pl-12 pr-4 py-3 rounded-lg border ${
-                  error ? 'border-red-500' : 'border-black/10'
+                  errorMessage ? 'border-red-500' : 'border-black/10'
                 } focus:outline-none focus:ring-2 focus:ring-black/20 bg-white text-black placeholder-gray-500`}
                 disabled={isLoading}
                 required
               />
-              {error && (
-                <p className="absolute -bottom-6 left-0 text-sm text-red-500">{error}</p>
-              )}
             </div>
             <button
               type="submit"
@@ -82,10 +92,10 @@ const EmailSubscription = () => {
               }`}
             >
               {isLoading ? (
-                <div className="flex items-center gap-2">
+                <>
                   <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-[#fff700]"></div>
                   <span>Subscribing...</span>
-                </div>
+                </>
               ) : (
                 <>
                   Get Started
@@ -94,12 +104,6 @@ const EmailSubscription = () => {
               )}
             </button>
           </form>
-
-          {isSubmitted && (
-            <div className="mt-4 p-3 bg-green-100 text-green-700 rounded-lg">
-              Thank you for subscribing! We'll keep you updated with our latest news and offers.
-            </div>
-          )}
 
           <p className="mt-4 text-sm text-gray-600">
             By subscribing, you agree to our Privacy Policy and consent to receive updates from our company.
@@ -110,4 +114,4 @@ const EmailSubscription = () => {
   );
 };
 
-export default EmailSubscription; 
+export default EmailSubscription;
