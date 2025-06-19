@@ -42,7 +42,7 @@ export default function SocialEventsBooking() {
             <div className="relative w-full h-full">
 
               {/* Top (Corporate Events) */}
-              <div className="absolute top-[0%] left-1/2 transform -translate-x-1/2">
+              <div className="absolute top-[4%] left-1/2 transform -translate-x-1/2">
                 <EventIcon
                   img="https://img.freepik.com/free-photo/yes_53876-47102.jpg?semt=ais_hybrid&w=740"
                   label="Corporate Events"
