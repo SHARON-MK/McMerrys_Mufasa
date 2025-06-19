@@ -16,6 +16,7 @@ const EmailSubscription = () => {
     setErrorMessage('');
 
     if (!email || !isValidEmail(email)) {
+      setEmail(''); // Clear input
       setErrorMessage('Please enter a valid email address');
       return;
     }
@@ -31,6 +32,7 @@ const EmailSubscription = () => {
         setTimeout(() => setIsSubmitted(false), 3000);
       }
     } catch (error) {
+      setEmail(''); // Clear input on error as well
       if (error.response?.status === 409) {
         setErrorMessage("You're already subscribed! 📧");
         setTimeout(() => setErrorMessage(''), 3000);
@@ -51,7 +53,6 @@ const EmailSubscription = () => {
             Subscribe to our newsletter for the latest updates and exclusive offers
           </p>
 
-          {/* Email Input Form */}
           <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-4 justify-center">
             <div className="relative flex-grow max-w-md">
               <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -60,8 +61,8 @@ const EmailSubscription = () => {
 
               {/* Overlay error message */}
               {errorMessage && (
-                <div className="absolute left-12 top-1/2 -translate-y-1/2 text-sm text-red-600 pointer-events-none">
-                  ❌ {errorMessage}
+                <div className="absolute left-12 top-1/2 -translate-y-1/2 text-sm text-red-600 pointer-events-none whitespace-nowrap overflow-hidden text-ellipsis">
+                  {errorMessage}
                 </div>
               )}
 
