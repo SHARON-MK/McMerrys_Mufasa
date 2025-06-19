@@ -79,23 +79,23 @@ const Hero = () => {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="mb-6 sm:mb-8 md:mb-8" 
             >
-              <h1 className="text-5xl sm:text-6xl md:text-5xl lg:text-6xl xl:text-7xl  font-bold mt-4 text-white leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-3xl lg:text-4xl xl:text-5xl mt-4 text-white leading-tight">
                 <motion.span 
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.2 }}
-                  className="block mb-2 sm:mb-3  md:mb-4 font-netflix"
+                  className="block mb-2 sm:mb-3  md:mb-4 font-arcaBold"
                 >
-                 The right moment calls
+                 THE RIGHT MOMENT CALLS
                 </motion.span>
 
                 <motion.span 
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.4 }}
-                  className="block  text-white font-netflix bg-clip-text text-transparent"
+                  className="block  text-white font-arcaBold bg-clip-text text-transparent"
                 >
-                 for the right support
+                 FOR THE RIGHT SUPPORT
                 </motion.span>
               </h1>
             </motion.div>
@@ -107,8 +107,8 @@ const Hero = () => {
               transition={{ duration: 0.8, delay: 0.6 }} 
               className="mb-8 sm:mb-1" 
             >
-              <p className="text-lg sm:text-xl font-netflix lg:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed  p-4 sm:p-6"> 
-                We handle every detail to make your social, corporate, or wedding event unforgettable.
+              <p className="text-sm sm:text-sm font-arcaBold lg:text-l text-gray-400 max-w-1xl mx-auto leading-relaxed  p-4 sm:p-6"> 
+                WE HANDLE EVERY DETAIL TO MAKE YOUR SOCIAL, CORPORATE, OR WEDDING EVENT UNFORGETTABLE
               </p>
             </motion.div>
 
@@ -128,13 +128,13 @@ const Hero = () => {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Enter your email address"
-        className="w-full  px-3 sm:px-4 md:px-6 py-3.5 sm:py-3 md:py-4 rounded-lg bg-black/50 backdrop-blur-sm border border-gray-300 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all duration-300 text-sm sm:text-base shadow-lg"
+        className="w-full font-arcaBold px-3 sm:px-4 md:px-6 py-3.5 sm:py-3 md:py-4 rounded-lg bg-black/50 backdrop-blur-sm border border-gray-300 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all duration-300 text-sm sm:text-base shadow-lg"
         required
       />
     </div>
     <button
       onClick={handleSubmit}
-      className="w-fit bg-[#fff700] text-black px-4  sm:px-6 md:px-8 py-3.5 sm:py-3 md:py-4 rounded-lg  transition-all duration-300 flex items-center justify-center gap-2 whitespace-nowrap shadow-lg text-sm sm:text-base hover:bg-yellow-800 transform hover:scale-105"
+      className="w-fit bg-[#fff700] font-arcaBold text-black px-4  sm:px-6 md:px-8 py-3.5 sm:py-3 md:py-4 rounded-lg  transition-all duration-300 flex items-center justify-center gap-2 whitespace-nowrap shadow-lg text-sm sm:text-base hover:bg-yellow-800 transform hover:scale-105"
     >
       Get Started
       <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />

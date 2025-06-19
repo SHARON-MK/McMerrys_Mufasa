@@ -8,6 +8,7 @@ module.exports = {
 
        fontFamily: {
         netflix: ['"Bebas Neue"', 'sans-serif'],
+        arcaBold: ['"Arca Majora 3 Bold"', 'sans-serif'],
       },
       animation: {
         'gradient-x': 'gradient-x 15s ease infinite',
