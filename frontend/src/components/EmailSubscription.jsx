@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, ArrowRight, CheckCircle, AlertTriangle } from 'lucide-react';
+import { Mail, ArrowRight } from 'lucide-react';
 import axios from 'axios';
 import { PUBLIC_ENDPOINTS } from '../constants/api';
 
@@ -14,6 +14,7 @@ const EmailSubscription = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage('');
+
     if (!email || !isValidEmail(email)) {
       setErrorMessage('Please enter a valid email address');
       return;
@@ -57,16 +58,22 @@ const EmailSubscription = () => {
                 <Mail className="w-5 h-5 text-gray-500" />
               </div>
 
+              {/* Overlay error message */}
+              {errorMessage && (
+                <div className="absolute left-12 top-1/2 -translate-y-1/2 text-sm text-red-600 pointer-events-none">
+                  ❌ {errorMessage}
+                </div>
+              )}
+
               <input
                 type="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setErrorMessage('');
+                }}
                 placeholder={
-                  isSubmitted
-                    ? '✅ You’re subscribed!'
-                    : errorMessage
-                    ? errorMessage
-                    : 'Enter your email'
+                  isSubmitted && !errorMessage ? '✅ You’re subscribed!' : !errorMessage ? 'Enter your email' : ''
                 }
                 className={`w-full pl-12 pr-4 py-3 rounded-lg border ${
                   errorMessage ? 'border-red-500 text-red-600' : 'border-black/10'
